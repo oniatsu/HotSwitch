@@ -1,0 +1,13 @@
+# Site settings
+title: HotSwitch
+email: dummy@example.com
+description: > # this means to ignore newlines until "baseurl:"
+  HotSwitch provides elegant and rapid window switching, even if many complex windows is showing.
+  You can switch any windows in a blink of an eye.
+baseurl: "/HotSwitch" # the subpath of your site, e.g. /blog/
+url: "http://oniatsu.github.io" # the base hostname & protocol for your site
+twitter_username: oniatsu
+github_username:  oniatsu
+
+# Build settings
+markdown: kramdown

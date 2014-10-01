@@ -1,0 +1,34 @@
+<div id="header_wrap" class="outer">
+  <header class="inner">
+
+    <div class="logo">
+      <a href="{{ "" | prepend: site.baseurl }}">
+        <img class="top_icon" width="64" height="64" src="{{ "/images/icon_128.png" | prepend: site.baseurl }}">
+        <h1 id="project_title">{{ site.title }}</h1>
+      </a>
+    </div>
+
+    <h2 id="project_tagline">Elegant and rapid window switcher</h2>
+
+    <div id="download_button">
+      <a href="{{ "/release/pkg/HotSwitch.pkg" | prepend: site.baseurl }}" class="button button-rounded button-flat-highlight button-jumbo" onclick="ga('send', 'event', 'button', 'click', 'download-button');"><i class="fa fa-cloud-download"></i> Download</a>
+      <p>For OS X 10.9 or later.</p>
+    </div>  
+
+    <img src="{{ "/images/top_image.png" | prepend: site.baseurl }}">
+
+    <div class="social_button">
+      <!-- Facebook - Like -->
+      <div class="fb-like" data-href="http://oniatsu.github.io/HotSwitch/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+      <!-- GitHub - Star -->
+      <iframe src="http://ghbtns.com/github-btn.html?user=oniatsu&repo=HotSwitch&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="62" height="20"></iframe>
+
+      <!-- Twitter - Tweet -->
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.baseurl }}" data-text="HotSwitch - Fastest window switcher for Mac OS X {{ site.url }}{{ site.baseurl }}">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+  </header>
+</div>
+
