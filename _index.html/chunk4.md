@@ -8,7 +8,7 @@ HotSwitch needs simple registration which combines with target windows.
 
 The registered key of step 3 is used for activating target window.
 
-In the example below, a window of iTunes combines with `t` key.
+In the example below, the window of iTunes combines with `t` key.
 That is to say, even if you are face on any window at that time, you press `Command+.` and type `t`, and then the window of iTunes is activated immediately.
 
 The important thing is that **the 2 stroke key bind is fixed anytime**.
