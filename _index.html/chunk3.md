@@ -1,10 +1,10 @@
 # In a blink of an eye
 
-You might have used `Command+Tab` for default window switcher of Mac OS X, otherwise, have used Mission Control or Dock and moved pointer and clicked a window.
+You may use `Command+Tab` for default window switcher of Mac OS X, otherwise, use Mission Control or Dock and move pointer and click a window.
 However, these ways are not smart.
 
 That is because you have to look, recognize and find where the target window you want to activate is.
-The time to find the window is very slow.
+It takes time to find the window.
 Needless to say, moving pointer and clicking window are not fast.
 
 **HotSwitch has adopted a quite different method.**
