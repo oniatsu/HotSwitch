@@ -157,9 +157,9 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     } else { // on the normal mode
         if ([self isRegisterableKey:keyCode unicodeKey:unicodeKey]) {
             if ([self isShowingWinKey:[self keyStringByKeyCode:keyCode unicodeKey:unicodeKey]]) {
+                [self deactivatePanel];
                 [self activateSelectedWindowByKey:[self keyStringByKeyCode:keyCode unicodeKey:unicodeKey]];
                 [self resetWindowInfoAndViewSize];
-                [self deactivatePanel];
             }
         } else {
             switch (keyCode) {
