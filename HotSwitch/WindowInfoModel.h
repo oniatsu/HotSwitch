@@ -16,7 +16,6 @@
 @property (nonatomic) NSString *winName;
 @property (nonatomic) NSString *appName;
 @property (nonatomic) NSNumber *winId;
-@property (nonatomic) NSColor* textColor;
 @property (nonatomic) NSInteger pid;
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
