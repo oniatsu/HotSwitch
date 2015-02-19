@@ -319,6 +319,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     for (int i = 0; i < CFArrayGetCount(windowList); i++) {
         BOOL flg = NO;
         CFDictionaryRef dict = CFArrayGetValueAtIndex(windowList, i);
+//        NSLog(@"dict: %@", dict);
         
         if ((int)CFDictionaryGetValue(dict, kCGWindowLayer) > 1000) {
             continue;
@@ -346,9 +347,6 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             }
         }
         if (!flg) continue;
-        
-        // exclude this app
-        if ([appName isEqualToString:@"HotSwitch"]) continue;
         
         CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
         NSString *winName = (__bridge_transfer NSString *) n;
@@ -385,7 +383,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         [self.windowInfoArray addObject:model];
     }
     
-    [self removeDuplicateWindowInfo];
+    [self removeUnnecessaryWindowInfo];
     
     [self setWinKeyToWindowInfo];
     
@@ -398,7 +396,23 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self resetViewSize];
 }
 
-- (void)removeDuplicateWindowInfo
+- (void)removeUnnecessaryWindowInfo
+{
+    [self removeXtraFinderDuplicateWindowInfo];
+    [self removeHotSwitchWindowInfo];
+}
+
+- (void)removeHotSwitchWindowInfo
+{
+    for (WindowInfoModel *model in self.windowInfoArray) {
+        if ([model.appName isEqualToString:@"HotSwitch"]) {
+            [self.windowInfoArray removeObject:model];
+            break;
+        }
+    }
+}
+
+- (void)removeXtraFinderDuplicateWindowInfo
 {
     // TODO: There is a broblem.
     // When you use "XtraFinder", two windows of the Finder is showed for some reason.
