@@ -352,11 +352,9 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         if (!flg) continue;
         
         CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
-        NSString *winName = (__bridge_transfer NSString *) n;
-        if (winName == nil) continue;
-        if ([winName isEqualToString:@""]) {
-            winName = appName;
-        }
+        NSString *originalWinName = (__bridge_transfer NSString *) n;
+        if (originalWinName == nil) continue;
+        NSString *winName = ([originalWinName isEqualToString:@""]) ? appName : originalWinName;
         
         NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
         NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
@@ -374,6 +372,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         WindowInfoModel *model = [[WindowInfoModel alloc] init];
         model.key = @"";
         model.icon = icon;
+        model.originalWinName = originalWinName;
         model.winName = winName;
         model.appName = appName;
         model.winId = winId;
@@ -401,14 +400,25 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)removeUnnecessaryWindowInfo
 {
-    [self removeXtraFinderDuplicateWindowInfo];
     [self removeHotSwitchWindowInfo];
+    [self removeGoogleChromeEmplyTitleWindowInfo];
+    [self removeXtraFinderDuplicateWindowInfo];
 }
 
 - (void)removeHotSwitchWindowInfo
 {
     for (WindowInfoModel *model in self.windowInfoArray) {
         if ([model.appName isEqualToString:@"HotSwitch"]) {
+            [self.windowInfoArray removeObject:model];
+            break;
+        }
+    }
+}
+
+- (void)removeGoogleChromeEmplyTitleWindowInfo
+{
+    for (WindowInfoModel *model in self.windowInfoArray) {
+        if ([model.appName isEqualToString:@"Google Chrome"] && [model.originalWinName isEqualToString:@""]) {
             [self.windowInfoArray removeObject:model];
             break;
         }

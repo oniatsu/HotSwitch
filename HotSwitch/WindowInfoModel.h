@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSString *key;
 @property (nonatomic) NSImage *icon;
+@property (nonatomic) NSString *originalWinName;
 @property (nonatomic) NSString *winName;
 @property (nonatomic) NSString *appName;
 @property (nonatomic) NSNumber *winId;
