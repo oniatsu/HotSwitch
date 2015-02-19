@@ -304,93 +304,91 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)resetWindowInfo
 {
-    @synchronized (self) {
-        self.isKeyRegisteringMode = NO;
+    self.isKeyRegisteringMode = NO;
     
-        self.windowInfoArray = [[NSMutableArray alloc] init];
+    self.windowInfoArray = [[NSMutableArray alloc] init];
+    
+    NSArray *apps = [[NSWorkspace sharedWorkspace] runningApplications];
+    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenOnly|kCGWindowListExcludeDesktopElements), kCGNullWindowID);
+    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionAll|kCGWindowListOptionOnScreenOnly|kCGWindowListExcludeDesktopElements), kCGNullWindowID);
+    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenOnly), kCGNullWindowID);
+    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenAboveWindow), kCGNullWindowID);
+    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListExcludeDesktopElements), kCGNullWindowID);
+    
+    for (int i = 0; i < CFArrayGetCount(windowList); i++) {
+        BOOL flg = NO;
+        CFDictionaryRef dict = CFArrayGetValueAtIndex(windowList, i);
         
-        NSArray *apps = [[NSWorkspace sharedWorkspace] runningApplications];
-        CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenOnly|kCGWindowListExcludeDesktopElements), kCGNullWindowID);
-        //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionAll|kCGWindowListOptionOnScreenOnly|kCGWindowListExcludeDesktopElements), kCGNullWindowID);
-        //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenOnly), kCGNullWindowID);
-        //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenAboveWindow), kCGNullWindowID);
-        //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListExcludeDesktopElements), kCGNullWindowID);
-        
-        for (int i = 0; i < CFArrayGetCount(windowList); i++) {
-            BOOL flg = NO;
-            CFDictionaryRef dict = CFArrayGetValueAtIndex(windowList, i);
-            
-            if ((int)CFDictionaryGetValue(dict, kCGWindowLayer) > 1000) {
-                continue;
-            }
-            
-            //        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
-            //        NSString *owner = (__bridge_transfer NSString *)ownerRef;
-            NSImage *icon = [[NSImage alloc] initWithSize:NSMakeSize(32, 32)];
-            NSString *appName = nil;
-            
-            CFNumberRef ownerPidRef = CFDictionaryGetValue(dict, kCGWindowOwnerPID);
-            NSInteger ownerPid = [(__bridge_transfer NSNumber *)ownerPidRef integerValue];
-            
-            for (NSRunningApplication* app in apps) {
-                if (ownerPid == app.processIdentifier) {
-                    appName = app.localizedName;
-                    [icon lockFocus];
-                    [app.icon drawInRect:NSMakeRect(0, 0, icon.size.width, icon.size.height)
-                                fromRect:NSMakeRect(0, 0, app.icon.size.width, app.icon.size.height)
-                               operation:NSCompositeCopy
-                                fraction:1.0f];
-                    [icon unlockFocus];
-                    flg = YES;
-                    break;
-                }
-            }
-            if (!flg) continue;
-            
-            // exclude this app
-            if ([appName isEqualToString:@"HotSwitch"]) continue;
-            
-            CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
-            NSString *winName = (__bridge_transfer NSString *) n;
-            if (winName == nil) continue;
-            if ([winName isEqualToString:@""]) {
-                winName = appName;
-            }
-            
-            NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
-            NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
-            if (!([layer integerValue] == 0 && [alpha integerValue] > 0)) continue;
-            
-            NSNumber *winId = CFDictionaryGetValue(dict, kCGWindowNumber);
-            
-            CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
-            NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
-            NSInteger x = [[winBounds objectForKey:@"X"] integerValue];
-            NSInteger y = [[winBounds objectForKey:@"Y"] integerValue];
-            NSInteger width = [[winBounds objectForKey:@"Width"] integerValue];
-            NSInteger height = [[winBounds objectForKey:@"Height"] integerValue];
-            
-            WindowInfoModel *model = [[WindowInfoModel alloc] init];
-            model.key = @"";
-            model.icon = icon;
-            model.winName = winName;
-            model.appName = appName;
-            model.winId = winId;
-            model.pid = ownerPid;
-            model.x = x;
-            model.y = y;
-            model.width = width;
-            model.height = height;
-            
-            [self.windowInfoArray addObject:model];
+        if ((int)CFDictionaryGetValue(dict, kCGWindowLayer) > 1000) {
+            continue;
         }
         
-        [self removeDuplicateWindowInfo];
+        //        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
+        //        NSString *owner = (__bridge_transfer NSString *)ownerRef;
+        NSImage *icon = [[NSImage alloc] initWithSize:NSMakeSize(32, 32)];
+        NSString *appName = nil;
         
-        [self setWinKeyToWindowInfo];
+        CFNumberRef ownerPidRef = CFDictionaryGetValue(dict, kCGWindowOwnerPID);
+        NSInteger ownerPid = [(__bridge_transfer NSNumber *)ownerPidRef integerValue];
         
-        [self.arrayController setContent:self.windowInfoArray];
+        for (NSRunningApplication* app in apps) {
+            if (ownerPid == app.processIdentifier) {
+                appName = app.localizedName;
+                [icon lockFocus];
+                [app.icon drawInRect:NSMakeRect(0, 0, icon.size.width, icon.size.height)
+                            fromRect:NSMakeRect(0, 0, app.icon.size.width, app.icon.size.height)
+                           operation:NSCompositeCopy
+                            fraction:1.0f];
+                [icon unlockFocus];
+                flg = YES;
+                break;
+            }
+        }
+        if (!flg) continue;
+        
+        // exclude this app
+        if ([appName isEqualToString:@"HotSwitch"]) continue;
+        
+        CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
+        NSString *winName = (__bridge_transfer NSString *) n;
+        if (winName == nil) continue;
+        if ([winName isEqualToString:@""]) {
+            winName = appName;
+        }
+        
+        NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
+        NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
+        if (!([layer integerValue] == 0 && [alpha integerValue] > 0)) continue;
+        
+        NSNumber *winId = CFDictionaryGetValue(dict, kCGWindowNumber);
+        
+        CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
+        NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
+        NSInteger x = [[winBounds objectForKey:@"X"] integerValue];
+        NSInteger y = [[winBounds objectForKey:@"Y"] integerValue];
+        NSInteger width = [[winBounds objectForKey:@"Width"] integerValue];
+        NSInteger height = [[winBounds objectForKey:@"Height"] integerValue];
+        
+        WindowInfoModel *model = [[WindowInfoModel alloc] init];
+        model.key = @"";
+        model.icon = icon;
+        model.winName = winName;
+        model.appName = appName;
+        model.winId = winId;
+        model.pid = ownerPid;
+        model.x = x;
+        model.y = y;
+        model.width = width;
+        model.height = height;
+        
+        [self.windowInfoArray addObject:model];
     }
+    
+    [self removeDuplicateWindowInfo];
+    
+    [self setWinKeyToWindowInfo];
+    
+    [self.arrayController setContent:self.windowInfoArray];
 }
 
 - (void)resetWindowInfoAndViewSize
@@ -513,25 +511,19 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 {
     CGWindowID win_id = (int)[model.winId integerValue];
     
-    // some AXUIElementCreateByWindowNumber would be soooo nice. but nope, we have to take the pain below.
     int pid = (int)model.pid;
     
     AXUIElementRef app = AXUIElementCreateApplication(pid);
     CFArrayRef appwindows;
     AXUIElementCopyAttributeValues(app, kAXWindowsAttribute, 0, 1000, &appwindows);
     if (appwindows) {
-        // looks like appwindows can be NULL when this function is called during the
-        // switch-workspaces animation
         for (id w in (__bridge NSArray*)appwindows) {
             AXUIElementRef win = (__bridge AXUIElementRef)w;
             CGWindowID tmp;
-            _AXUIElementGetWindow(win, &tmp); //XXX: undocumented API. but the alternative is horrifying.
+            _AXUIElementGetWindow(win, &tmp);
             if (tmp == win_id) {
-                // finally got it, activate the window
                 AXUIElementPerformAction(win, kAXRaiseAction);
                 
-                // TODO: The later method is deprecated. So, switching to the former method may be good.
-                // [[NSApplication sharedApplication] activateIgnoringOtherApps: YES].
                 ProcessSerialNumber process;
                 GetProcessForPID(pid, &process);
                 SetFrontProcessWithOptions(&process, kSetFrontProcessFrontWindowOnly);
