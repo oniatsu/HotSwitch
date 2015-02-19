@@ -310,11 +310,15 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     self.windowInfoArray = [[NSMutableArray alloc] init];
     
     NSArray *apps = [[NSWorkspace sharedWorkspace] runningApplications];
-    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenOnly|kCGWindowListExcludeDesktopElements), kCGNullWindowID);
-    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionAll|kCGWindowListOptionOnScreenOnly|kCGWindowListExcludeDesktopElements), kCGNullWindowID);
-    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenOnly), kCGNullWindowID);
-    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListOptionOnScreenAboveWindow), kCGNullWindowID);
-    //    CFArrayRef windowList = CGWindowListCopyWindowInfo((kCGWindowListExcludeDesktopElements), kCGNullWindowID);
+    
+    CGWindowListOption option = kCGWindowListOptionAll;
+    option |= kCGWindowListOptionOnScreenOnly;
+//    option |= kCGWindowListOptionOnScreenAboveWindow;
+//    option |= kCGWindowListOptionOnScreenBelowWindow;
+//    option |= kCGWindowListOptionIncludingWindow;
+    option |= kCGWindowListExcludeDesktopElements;
+    
+    CFArrayRef windowList = CGWindowListCopyWindowInfo(option, kCGNullWindowID);
     
     for (int i = 0; i < CFArrayGetCount(windowList); i++) {
         BOOL flg = NO;
@@ -524,6 +528,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)activateWindow:(WindowInfoModel*)model
 {
+//    NSLog(@"winName: %@", model.winName);
+//    NSLog(@"appName: %@", model.appName);
+//    NSLog(@"\n");
+    
     CGWindowID win_id = (int)[model.winId integerValue];
     
     int pid = (int)model.pid;
