@@ -74,7 +74,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self initializeFirstExecution];
     
     // For test
-//    [self executeHotkey];
+    //    [self executeHotkey];
 }
 
 #pragma mark - test
@@ -324,16 +324,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
                 continue;
             }
             
-            CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
-            NSString *winName = (__bridge_transfer NSString *) n;
-            if (winName == nil || [winName isEqualToString:@""]) continue;
-            
             //        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
             //        NSString *owner = (__bridge_transfer NSString *)ownerRef;
             NSImage *icon = [[NSImage alloc] initWithSize:NSMakeSize(32, 32)];
             NSString *appName = nil;
-            NSString *ios = CFDictionaryGetValue(dict, kCGWindowIsOnscreen);
-            NSInteger isOnScreen = [ios integerValue];
             
             CFNumberRef ownerPidRef = CFDictionaryGetValue(dict, kCGWindowOwnerPID);
             NSInteger ownerPid = [(__bridge_transfer NSNumber *)ownerPidRef integerValue];
@@ -351,8 +345,14 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
                     break;
                 }
             }
-            
             if (!flg) continue;
+            
+            CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
+            NSString *winName = (__bridge_transfer NSString *) n;
+            if (winName == nil) continue;
+            if ([winName isEqualToString:@""]) {
+                winName = appName;
+            }
             
             NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
             NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
@@ -373,7 +373,6 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             model.winName = winName;
             model.appName = appName;
             model.winId = winId;
-            model.textColor = isOnScreen ? [NSColor whiteColor] : [NSColor lightGrayColor];
             model.pid = ownerPid;
             model.x = x;
             model.y = y;
