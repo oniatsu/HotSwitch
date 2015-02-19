@@ -185,9 +185,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
                     }
                     break;
                 case kVK_Return:
-                    [self activateSelectedWindow];
                     [self resetWindowInfoAndViewSize];
                     [self deactivatePanel];
+                    
+                    [self activateSelectedWindow];
                     break;
                 case kVK_Escape:
                     if ([self.windowInfoArray count] != 0) {
