@@ -62,7 +62,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     // Insert code here to initialize your application
     
     [self initializeVariables];
-
+    
+    [self initializePanel];
     [self resetWindowInfoAndViewSize];
     
     [self setupStatusMenu];
@@ -74,7 +75,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self initializeFirstExecution];
     
     // For test
-    //    [self executeHotkey];
+//    [self executeHotkey];
 }
 
 #pragma mark - test
@@ -256,6 +257,15 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 //    [self setIsStartupEnabled:NO];
     [self setIsHotKeyEnabled:YES];
 //    [self setIsReplaceCmdTabEnabled:NO];
+}
+
+- (void)initializePanel
+{
+    // once, create the panel without display
+    [self.panel setAlphaValue:0];
+    [self activatePanel];
+    [self deactivatePanel];
+    [self.panel setAlphaValue:1];
 }
 
 - (void)showTutorial
