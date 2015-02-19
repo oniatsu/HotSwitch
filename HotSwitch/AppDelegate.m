@@ -347,6 +347,9 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             }
             if (!flg) continue;
             
+            // exclude this app
+            if ([appName isEqualToString:@"HotSwitch"]) continue;
+            
             CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
             NSString *winName = (__bridge_transfer NSString *) n;
             if (winName == nil) continue;
