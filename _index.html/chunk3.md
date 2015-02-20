@@ -1,6 +1,6 @@
 # In a blink of an eye
 
-You may use `Command+Tab` for default window switcher of Mac OS X, otherwise, use Mission Control or Dock and move pointer and click a window.
+You may use `Command+Tab` for default window switcher of OS X, otherwise, use Mission Control or Dock and move pointer and click a window.
 However, these ways are not smart.
 
 That is because you have to look, recognize and find where the target window you want to activate is.
