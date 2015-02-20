@@ -410,20 +410,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)removeUnnecessaryWindowInfo
 {
-    [self removeHotSwitchWindowInfo];
+    [self removeSpecificEmplyTitleWindowInfo:@"HotSwitch"];
     [self removeSpecificEmplyTitleWindowInfo:@"Finder"];
     [self removeSpecificEmplyTitleWindowInfo:@"Google Chrome"];
     [self removeXtraFinderDuplicateWindowInfo];
-}
-
-- (void)removeHotSwitchWindowInfo
-{
-    for (WindowInfoModel *model in self.windowInfoArray) {
-        if ([model.appName isEqualToString:@"HotSwitch"]) {
-            [self.windowInfoArray removeObject:model];
-            break;
-        }
-    }
 }
 
 - (void)removeSpecificEmplyTitleWindowInfo:(NSString*)appName
