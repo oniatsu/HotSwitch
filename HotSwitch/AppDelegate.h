@@ -40,5 +40,6 @@
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)openAbout:(id)sender;
 - (IBAction)openHelp:(id)sender;
+- (IBAction)openPanel:(id)sender;
 
 @end

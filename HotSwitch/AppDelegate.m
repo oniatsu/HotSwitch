@@ -110,6 +110,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kHotSwitchWebPageURI]];
 }
 
+- (IBAction)openPanel:(id)sender {
+    [self executeHotkey];
+}
+
 #pragma mark - user events
 
 - (void)keyDownAtTable:(NSEvent *)theEvent
