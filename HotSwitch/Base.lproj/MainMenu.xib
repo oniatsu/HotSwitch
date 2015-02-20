@@ -50,13 +50,14 @@
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Hide HotSwitch" keyEquivalent="h" id="Olw-nP-bQN">
+                            <menuItem title="Hide HotSwitch" id="Olw-nP-bQN">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <menuItem title="Hide Others" id="Vdr-fp-XzO">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="hideOtherApplications:" target="-1" id="VT4-aY-XCT"/>
                                 </connections>
@@ -68,7 +69,8 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                            <menuItem title="Quit HotSwitch" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="Quit HotSwitch" id="4sb-4s-VLi">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>
@@ -869,7 +871,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="578" y="388.5"/>
+            <point key="canvasLocation" x="577.5" y="388.5"/>
         </menu>
         <customObject id="iGy-Vj-ot0" customClass="SUUpdater"/>
     </objects>
