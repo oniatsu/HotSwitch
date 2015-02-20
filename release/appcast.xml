@@ -10,12 +10,43 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.0 (First release)</title>
-      <sparkle:releaseNotesLink>
-        {{ site.url }}{{ site.baseurl }}/release/note/1.0.html
-      </sparkle:releaseNotesLink>
+      <title>Version 1.1</title>
+      <description>
+        <![CDATA[
+        <ul>
+          <li>Fix showing window lists to add some window lists without title</li>
+          <li>Fix the panel size opend first time on Yosemite</li>
+          <li>Change a timing to hide the panel on switching</li>
+          <li>Add a menu item to open HotSwitch panel</li>
+          <li>Remove some OS X's default keyboard shortcuts</li>
+        </ul>
+        ]]>
+      </description>
+      <pubDate>Fri, 21 Feb 2015 10:00:00 +0009</pubDate>
+      <enclosure
+        url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch-1.1.zip"
+        sparkle:version="1.1"
+        type="application/octet-stream"
+        sparkle:dsaSignature="MCwCFAeotwDsc6L1TVeKIOzoEt8priVuAhRBgA+qfBRgkPA6qnKFGJ2vOAh1RA=="
+        />
+    </item>
+
+    <item>
+      <title>Version 1.0</title>
+      <description>
+        <![CDATA[
+        <ul>
+          <li>This is HotSwitch's first release.</li>
+        </ul>
+        ]]>
+      </description>
       <pubDate>Wed, 01 Oct 2014 00:40:11 +0009</pubDate>
-      <enclosure url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch-1.0.zip" sparkle:version="1.0" type="application/octet-stream" sparkle:dsaSignature="MC0CFE2/rK549Ft5ZCr9VBN13djsZP5CAhUAooT/qlr0Q8tIldbG/Kr/KrhprVw=" />
+      <enclosure
+        url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch-1.0.zip"
+        sparkle:version="1.0"
+        type="application/octet-stream"
+        sparkle:dsaSignature="MC0CFE2/rK549Ft5ZCr9VBN13djsZP5CAhUAooT/qlr0Q8tIldbG/Kr/KrhprVw="
+        />
     </item>
 
   </channel>
