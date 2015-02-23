@@ -15,7 +15,7 @@ layout: null
         <![CDATA[
         <ul>
           <li>Fix showing window lists to add some window lists without title</li>
-          <li>Fix the panel size opend first time on Yosemite</li>
+          <li>Fix the panel size opened first time on Yosemite</li>
           <li>Change a timing to hide the panel on switching</li>
           <li>Add a menu item to open HotSwitch panel</li>
           <li>Remove some OS X's default keyboard shortcuts</li>
