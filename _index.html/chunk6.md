@@ -1,4 +1,6 @@
-# License
+# ChangeLog
 
-HotSwitch is freeware for personal use or business use.
+See 
+<a class="ga" id="changelog-link" href="https://github.com/oniatsu/HotSwitch/releases">GitHub's Releases page</a>
+.
 
