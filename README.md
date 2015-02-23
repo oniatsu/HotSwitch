@@ -9,7 +9,7 @@ It provides elegant and rapid window switching, no matter how many windows there
 Detailed information is here. 
 http://oniatsu.github.io/HotSwitch/
 
-# Instaration
+# Installation
 
 [Download](http://oniatsu.github.io/HotSwitch/) and install HotSwitch.
 
