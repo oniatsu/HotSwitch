@@ -28,7 +28,7 @@ layout: null
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch-1.2.zip"
         sparkle:version="1.2"
         type="application/octet-stream"
-        sparkle:dsaSignature="MCwCFAeotwDsc6L1TVeKIOzoEt8priVuAhRBgA+qfBRgkPA6qnKFGJ2vOAh1RA=="
+        sparkle:dsaSignature="MCwCFDA/mv+Q3xImRAqGSHfHz+qdXYzDAhQR9tWDbJZFBiKIQYtqABOfI3vRlg=="
         />
     </item>
 
