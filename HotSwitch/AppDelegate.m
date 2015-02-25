@@ -414,10 +414,29 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)removeUnnecessaryWindowInfo
 {
+    // TODO: These ways is not smart.
+    // Currently the no meaning windows is removed from windows list by checking each windows info.
+    // Perhaps more suitable methods is exist.
+    [self removeSystemPreferencesDuplicatedWindowInfo];
     [self removeSpecificEmplyTitleWindowInfo:@"HotSwitch"];
     [self removeSpecificEmplyTitleWindowInfo:@"Finder"];
     [self removeSpecificEmplyTitleWindowInfo:@"Google Chrome"];
     [self removeXtraFinderDuplicateWindowInfo];
+}
+
+- (void)removeSystemPreferencesDuplicatedWindowInfo
+{
+    NSError *error = nil;
+    NSString *pattern = @"^com\\.apple\\.preference\\..+\\.remoteservice$";
+    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    
+    for (WindowInfoModel *model in self.windowInfoArray) {
+        NSTextCheckingResult *match = [regexp firstMatchInString:model.appName options:0 range:NSMakeRange(0, model.appName.length)];
+        if (match.numberOfRanges == 1) {
+            [self.windowInfoArray removeObject:model];
+            break;
+        }
+    }
 }
 
 - (void)removeSpecificEmplyTitleWindowInfo:(NSString*)appName
