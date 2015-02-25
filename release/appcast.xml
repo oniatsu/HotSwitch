@@ -13,9 +13,9 @@ layout: null
       <title>Version 1.1</title>
       <description>
         <![CDATA[
-        <h1>Important</h1>
+        <h1>Important!</h1>
         <p><strong>Automatic updating process may fail</strong> under the versions below this.</p>
-        <p>So, you have to donwload the latest HotSwitch manually, and overwrite the HotSwitch at /Applications directory.</p>
+        <p>So, you have to <a href="http://oniatsu.github.io/HotSwitch/">donwload the latest HotSwitch</a> manually, and overwrite the HotSwitch at /Applications directory.</p>
 
         <h2>ChangeLog</h2>
         <ul>
