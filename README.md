@@ -11,7 +11,18 @@ http://oniatsu.github.io/HotSwitch/
 
 # Installation
 
+## Manual way
+
 [Download](http://oniatsu.github.io/HotSwitch/) and install HotSwitch.
+
+## Using Homebrew Cask
+
+This way requires [Homebrew Cask](http://caskroom.io/).
+Execute the following command at your terminal.
+
+```
+$ brew cask install hotswitch
+```
 
 # Usage
 
