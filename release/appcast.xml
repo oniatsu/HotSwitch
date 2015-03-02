@@ -10,6 +10,29 @@ layout: null
     <language>en</language>
 
     <item>
+      <title>Version 1.3</title>
+      <description>
+        <![CDATA[
+        <h1>Important</h1>
+        <p><strong>Automatic updating process may fail</strong> under the versions below 1.1.</p>
+        <p>So, if you are using version 1.0 now, you have to <a href="http://oniatsu.github.io/HotSwitch/">donwload the latest HotSwitch</a> manually, and overwrite the HotSwitch at /Applications directory.</p>
+
+        <h3>ChangeLog</h3>
+        <ul>
+          <li>Fix the getting windows process to exclude no meaning windows</li>
+        </ul>
+        ]]>
+      </description>
+      <pubDate>Mon, 2 Mar 2015 21:30:00 +0009</pubDate>
+      <enclosure
+        url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch-1.3.zip"
+        sparkle:version="1.3"
+        type="application/octet-stream"
+        sparkle:dsaSignature="MC4CFQCiCl9iTSZNd07BT6SX0SxXe5LqQgIVAI4l0svEVZt7i5vqXLL98bG+UHUq"
+        />
+    </item>
+
+    <item>
       <title>Version 1.2</title>
       <description>
         <![CDATA[
