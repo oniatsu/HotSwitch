@@ -421,6 +421,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self removeSpecificEmplyTitleWindowInfo:@"HotSwitch"];
     [self removeSpecificEmplyTitleWindowInfo:@"Finder"];
     [self removeSpecificEmplyTitleWindowInfo:@"Google Chrome"];
+    [self removeSpecificEmplyTitleWindowInfo:@"iOS Simulator"];
     [self removeXtraFinderDuplicateWindowInfo];
 }
 
