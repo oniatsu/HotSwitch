@@ -428,7 +428,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 - (void)removeSystemPreferencesDuplicatedWindowInfo
 {
     NSError *error = nil;
-    NSString *pattern = @"^com\\.apple\\.preference\\..+\\.remoteservice$";
+    NSString *pattern = @"^com\\.apple\\.preferences?\\..+\\.remoteservice$";
     NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
     
     for (WindowInfoModel *model in self.windowInfoArray) {
