@@ -375,6 +375,9 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         
         NSNumber *winId = CFDictionaryGetValue(dict, kCGWindowNumber);
         
+        AXUIElementRef uiEle = [self getAXUIElementRefWithWinId:winId pid:ownerPid];
+        if (uiEle == nil) continue;
+        
         CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
         NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
         NSInteger x = [[winBounds objectForKey:@"X"] integerValue];
@@ -390,6 +393,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         model.appName = appName;
         model.winId = winId;
         model.pid = ownerPid;
+        model.uiEle = uiEle;
         model.x = x;
         model.y = y;
         model.width = width;
@@ -561,13 +565,25 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)activateWindow:(WindowInfoModel*)model
 {
+    int pid = (int)model.pid;
+    AXUIElementRef uiEle = model.uiEle;
+    
+    AXUIElementPerformAction(uiEle, kAXRaiseAction);
+    
+    ProcessSerialNumber process;
+    GetProcessForPID(pid, &process);
+    SetFrontProcessWithOptions(&process, kSetFrontProcessFrontWindowOnly);
+}
+
+- (AXUIElementRef)getAXUIElementRefWithWinId:(NSNumber*)modelWinId pid:(NSInteger)modelPid
+{
 //    NSLog(@"winName: %@", model.winName);
 //    NSLog(@"appName: %@", model.appName);
 //    NSLog(@"\n");
     
-    CGWindowID win_id = (int)[model.winId integerValue];
+    CGWindowID win_id = (int)[modelWinId integerValue];
     
-    int pid = (int)model.pid;
+    int pid = (int)modelPid;
     
     AXUIElementRef app = AXUIElementCreateApplication(pid);
     CFArrayRef appwindows;
@@ -578,17 +594,13 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             CGWindowID tmp;
             _AXUIElementGetWindow(win, &tmp);
             if (tmp == win_id) {
-                AXUIElementPerformAction(win, kAXRaiseAction);
-                
-                ProcessSerialNumber process;
-                GetProcessForPID(pid, &process);
-                SetFrontProcessWithOptions(&process, kSetFrontProcessFrontWindowOnly);
-                break;
+                return win;
             }
         }
         CFRelease(appwindows);
     }
     CFRelease(app);
+    return nil;
 }
 
 - (NSInteger)winOrderIndexByWindowInfoModel:(WindowInfoModel*)theModel
