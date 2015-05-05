@@ -342,8 +342,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             continue;
         }
         
-        //        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
-        //        NSString *owner = (__bridge_transfer NSString *)ownerRef;
+//        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
+//        NSString *owner = (__bridge_transfer NSString *)ownerRef;
         NSImage *icon = [[NSImage alloc] initWithSize:NSMakeSize(32, 32)];
         NSString *appName = nil;
         
@@ -367,8 +367,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         
         CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
         NSString *originalWinName = (__bridge_transfer NSString *) n;
-        if (originalWinName == nil) continue;
-        NSString *winName = ([originalWinName isEqualToString:@""]) ? appName : originalWinName;
+        NSString *winName = (originalWinName == nil || [originalWinName isEqualToString:@""]) ? appName : originalWinName;
         
         NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
         NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
