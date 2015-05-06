@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.6
+
+- Fix the getting windows by adding a check that the UI element has sub elements
+
 ## Version 1.5
 
 - Fix the getting windows which have null title
