@@ -38,3 +38,7 @@ Send Pull-Request when you fix some bugs or modify some functions.
 
 HotSwitch is released under the [MIT License](http://opensource.org/licenses/MIT).
 
+# ChangeLog
+
+See [here](https://github.com/oniatsu/HotSwitch/blob/master/ChangeLog.md).
+
