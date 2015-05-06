@@ -375,8 +375,11 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         
         NSNumber *winId = CFDictionaryGetValue(dict, kCGWindowNumber);
         
-        AXUIElementRef uiEle = [self getAXUIElementRefWithWinId:winId pid:ownerPid];
+        AXUIElementRef uiEle = [self AXUIElementRefByWinId:winId pid:ownerPid];
         if (uiEle == nil) continue;
+        
+        NSArray* children = subElementsFromElement(uiEle);
+        if ([children count] == 0) continue;
         
         CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
         NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
@@ -575,12 +578,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     SetFrontProcessWithOptions(&process, kSetFrontProcessFrontWindowOnly);
 }
 
-- (AXUIElementRef)getAXUIElementRefWithWinId:(NSNumber*)modelWinId pid:(NSInteger)modelPid
+- (AXUIElementRef)AXUIElementRefByWinId:(NSNumber*)modelWinId pid:(NSInteger)modelPid
 {
-//    NSLog(@"winName: %@", model.winName);
-//    NSLog(@"appName: %@", model.appName);
-//    NSLog(@"\n");
-    
     CGWindowID win_id = (int)[modelWinId integerValue];
     
     int pid = (int)modelPid;
@@ -601,6 +600,25 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     }
     CFRelease(app);
     return nil;
+}
+
+NSArray* subElementsFromElement(AXUIElementRef element) {
+    CFArrayRef subElementsCFArray = nil;
+    CFIndex count = 0;
+    AXError result;
+    NSString * attribute = @"AXChildren";
+    
+    result = AXUIElementGetAttributeValueCount( element, (__bridge  CFStringRef )attribute, &count );
+    if( result != kAXErrorSuccess ) {
+        return nil;
+    }
+    result = AXUIElementCopyAttributeValues( element, (__bridge  CFStringRef )attribute, 0, count, &subElementsCFArray );
+    if( result != kAXErrorSuccess ) {
+        return nil;
+    }
+    
+    NSArray *subElements = (__bridge NSArray *)subElementsCFArray;
+    return subElements;
 }
 
 - (NSInteger)winOrderIndexByWindowInfoModel:(WindowInfoModel*)theModel
