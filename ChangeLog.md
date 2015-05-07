@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.8
+
+- Fix registration mode by ignoring self window
+
 ## Version 1.7
 
 - Remove unnecessary check
