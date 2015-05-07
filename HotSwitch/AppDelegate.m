@@ -654,6 +654,13 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
     [self.panel makeFirstResponder:self.table];
 }
 
+#pragma mark - window
+
+- (void)deactivatePreferenceWindow
+{
+    [self.preferenceWindow orderOut:self];
+}
+
 #pragma mark - settings
 
 - (BOOL)isHotKeyEnabled
@@ -787,6 +794,8 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
 - (void)executeHotkey
 {
     if (![self.panel isKeyWindow]) {
+        [self deactivatePreferenceWindow];
+        
         [self resetWindowInfoAndViewSize];
         
         [self selectNextRow];
