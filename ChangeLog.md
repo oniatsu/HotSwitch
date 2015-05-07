@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Version 1.7
+
+- Remove unnecessary check
+- Improve getting window by hiding HotSwitch window
+
 ## Version 1.6
 
 - Fix the getting windows by adding a check that the UI element has sub elements
