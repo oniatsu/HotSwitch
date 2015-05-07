@@ -420,10 +420,34 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)removeUnnecessaryWindowInfo
 {
+    [self removeSelfWindowInfo];
+    
     // TODO: These ways is not smart.
     // Currently the no meaning windows is removed from windows list by checking each windows info.
     // Perhaps more suitable methods is exist.
     [self removeXtraFinderDuplicateWindowInfo];
+}
+
+- (void)removeSelfWindowInfo
+{
+    NSInteger winId = [self.panel windowNumber];
+    
+    for (WindowInfoModel *model in self.windowInfoArray) {
+        if (model.winId.integerValue == winId) {
+            [self.windowInfoArray removeObject:model];
+            break;
+        }
+    }
+}
+
+- (void)removeSpecificEmplyTitleWindowInfo:(NSString*)appName
+{
+    for (WindowInfoModel *model in self.windowInfoArray) {
+        if ([model.appName isEqualToString:appName] && [model.originalWinName isEqualToString:@""]) {
+            [self.windowInfoArray removeObject:model];
+            break;
+        }
+    }
 }
 
 - (void)removeXtraFinderDuplicateWindowInfo
