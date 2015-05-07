@@ -26,7 +26,7 @@ $ brew cask install hotswitch
 
 # Usage
 
-See [the HotSwitch page](http://oniatsu.github.io/HotSwitch/).
+See [HotSwitch page](http://oniatsu.github.io/HotSwitch/).
 
 # Collaboration
 
