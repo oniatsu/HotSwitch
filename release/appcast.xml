@@ -10,22 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.7</title>
+      <title>Version 1.8</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Remove unnecessary check</li>
-          <li>Improve getting window by hiding HotSwitch window</li>
+          <li>Fix registration mode by ignoring self window</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Thu, 7 May 2015 10:30:00 +0009</pubDate>
+      <pubDate>Thu, 7 May 2015 11:30:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.7"
+        sparkle:version="1.8"
         type="application/octet-stream"
-        sparkle:dsaSignature="MCwCFGPXOf+P6pamBigFN+5/C179a06vAhR7WxDkD5iyyq7wjjKeD6BdCF+7pA=="
+        sparkle:dsaSignature="MC0CFGfcN3gqVZPqM2fpPydzxEMogmsVAhUAwwehcHUQ5OXfrbKaAa5ifscebPE="
         />
     </item>
 
