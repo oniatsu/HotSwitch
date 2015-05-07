@@ -394,7 +394,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         model.originalWinName = originalWinName;
         model.winName = winName;
         model.appName = appName;
-        model.winId = winId;
+        model.winId = winId.integerValue;
         model.pid = ownerPid;
         model.uiEle = uiEle;
         model.x = x;
@@ -433,7 +433,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     NSInteger winId = [self.panel windowNumber];
     
     for (WindowInfoModel *model in self.windowInfoArray) {
-        if (model.winId.integerValue == winId) {
+        if (model.winId == winId) {
             [self.windowInfoArray removeObject:model];
             break;
         }
@@ -932,7 +932,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     windowInfoArrayOnlySelectedApp = [[windowInfoArrayOnlySelectedApp sortedArrayUsingSelector:@selector(compareWinId:)] mutableCopy];
     for (int i = 0; i < windowInfoArrayOnlySelectedApp.count; i++) {
         WindowInfoModel *model = [windowInfoArrayOnlySelectedApp objectAtIndex:i];
-        if ([model.winId isEqualToNumber:selectedModel.winId]) {
+        if (model.winId == selectedModel.winId) {
             selectedAppWinIdIndex = i;
         }
     }
