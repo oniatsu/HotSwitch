@@ -377,9 +377,9 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         
         AXUIElementRef uiEle = [self AXUIElementRefByWinId:winId pid:ownerPid];
         if (uiEle == nil) continue;
-        
-        NSArray* children = subElementsFromElement(uiEle);
-        if ([children count] == 0) continue;
+
+//        NSArray* children = subElementsFromElement(uiEle);
+//        if ([children count] == 0) continue;
         
         CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
         NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
@@ -423,42 +423,11 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     // TODO: These ways is not smart.
     // Currently the no meaning windows is removed from windows list by checking each windows info.
     // Perhaps more suitable methods is exist.
-    [self removeSystemPreferencesDuplicatedWindowInfo];
-    [self removeSpecificEmplyTitleWindowInfo:@"HotSwitch"];
-    [self removeSpecificEmplyTitleWindowInfo:@"Finder"];
-    [self removeSpecificEmplyTitleWindowInfo:@"Google Chrome"];
-    [self removeSpecificEmplyTitleWindowInfo:@"iOS Simulator"];
     [self removeXtraFinderDuplicateWindowInfo];
-}
-
-- (void)removeSystemPreferencesDuplicatedWindowInfo
-{
-    NSError *error = nil;
-    NSString *pattern = @"^com\\.apple\\.preferences?\\..+\\.remoteservice$";
-    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-    
-    for (WindowInfoModel *model in self.windowInfoArray) {
-        NSTextCheckingResult *match = [regexp firstMatchInString:model.appName options:0 range:NSMakeRange(0, model.appName.length)];
-        if (match.numberOfRanges == 1) {
-            [self.windowInfoArray removeObject:model];
-            break;
-        }
-    }
-}
-
-- (void)removeSpecificEmplyTitleWindowInfo:(NSString*)appName
-{
-    for (WindowInfoModel *model in self.windowInfoArray) {
-        if ([model.appName isEqualToString:appName] && [model.originalWinName isEqualToString:@""]) {
-            [self.windowInfoArray removeObject:model];
-            break;
-        }
-    }
 }
 
 - (void)removeXtraFinderDuplicateWindowInfo
 {
-    // TODO: There is a broblem.
     // When you use "XtraFinder", two windows of the Finder is showed for some reason.
     // So, this code check the duplicate window and ignore a window.
     
@@ -477,7 +446,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         
         if (([model.winName isEqualToString:firstWinName]) && (model.x == firstX && model.width == firstWidth) && ((model.y - firstY) + (model.height - firstHeight) == 0)) {
             // the window name is same
-            // and, the weight is same
+            // and, the width is same
             // and, the y difference and the height is same
             // -> this judge that the duplicate window of "XtraFinder" is created
             [duplicateWindowInfoArray addObject:model];
@@ -608,12 +577,12 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
     AXError result;
     NSString * attribute = @"AXChildren";
     
-    result = AXUIElementGetAttributeValueCount( element, (__bridge  CFStringRef )attribute, &count );
-    if( result != kAXErrorSuccess ) {
+    result = AXUIElementGetAttributeValueCount(element, (__bridge CFStringRef)attribute, &count);
+    if(result != kAXErrorSuccess) {
         return nil;
     }
-    result = AXUIElementCopyAttributeValues( element, (__bridge  CFStringRef )attribute, 0, count, &subElementsCFArray );
-    if( result != kAXErrorSuccess ) {
+    result = AXUIElementCopyAttributeValues(element, (__bridge CFStringRef)attribute, 0, count, &subElementsCFArray );
+    if(result != kAXErrorSuccess) {
         return nil;
     }
     
