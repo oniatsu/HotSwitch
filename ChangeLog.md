@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.9
+
+- Fix getting windows to ignore the specific windows
+
 ## Version 1.8
 
 - Fix registration mode by ignoring self window
