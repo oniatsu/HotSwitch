@@ -378,8 +378,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         AXUIElementRef uiEle = [self AXUIElementRefByWinId:winId pid:ownerPid];
         if (uiEle == nil) continue;
 
-//        NSArray* children = subElementsFromElement(uiEle);
-//        if ([children count] == 0) continue;
+        NSArray* children = subElementsFromElement(uiEle);
+        if ([children count] == 0) continue;
         
         CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
         NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
