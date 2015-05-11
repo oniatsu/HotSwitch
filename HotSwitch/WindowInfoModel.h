@@ -18,6 +18,7 @@
 @property (nonatomic) NSInteger winId;
 @property (nonatomic) NSInteger pid;
 @property (nonatomic) AXUIElementRef uiEle;
+@property (nonatomic) NSArray* uiEleChildren;
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 @property (nonatomic) NSInteger width;

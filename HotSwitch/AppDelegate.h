@@ -31,6 +31,7 @@
 
 @property (nonatomic) BOOL isKeyRegisteringMode;
 @property (nonatomic) NSMutableArray *windowInfoArray;
+@property (nonatomic) NSMutableArray *lastAllWindowInfoArray;
 @property (nonatomic) NSMutableArray *allShowingWinKey;
 @property (nonatomic) NSStatusItem *statusItem;
 
