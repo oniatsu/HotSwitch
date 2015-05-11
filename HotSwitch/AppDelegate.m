@@ -482,7 +482,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)removeInvalidWindowInfo
 {
-    [self.windowInfoArray filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+    [self.windowInfoArray filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         WindowInfoModel* model = (WindowInfoModel*) evaluatedObject;
         if (model.uiEle == nil || [model.uiEleChildren count] == 0) {
             return NO;
