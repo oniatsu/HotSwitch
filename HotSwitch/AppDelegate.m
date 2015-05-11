@@ -320,7 +320,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 {
     self.isKeyRegisteringMode = NO;
     
-    self.windowInfoArray = [[NSMutableArray alloc] init];
+    NSMutableArray* newWindowInfoArray = [[NSMutableArray alloc] init];
     
     NSArray *apps = [[NSWorkspace sharedWorkspace] runningApplications];
     
@@ -336,51 +336,75 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     for (int i = 0; i < CFArrayGetCount(windowList); i++) {
         BOOL flg = NO;
         CFDictionaryRef dict = CFArrayGetValueAtIndex(windowList, i);
-//        NSLog(@"dict: %@", dict);
         
         if ((int)CFDictionaryGetValue(dict, kCGWindowLayer) > 1000) {
             continue;
         }
         
-//        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
-//        NSString *owner = (__bridge_transfer NSString *)ownerRef;
-        NSImage *icon = [[NSImage alloc] initWithSize:NSMakeSize(32, 32)];
-        NSString *appName = nil;
-        
+        // pid
         CFNumberRef ownerPidRef = CFDictionaryGetValue(dict, kCGWindowOwnerPID);
         NSInteger ownerPid = [(__bridge_transfer NSNumber *)ownerPidRef integerValue];
         
-        for (NSRunningApplication* app in apps) {
-            if (ownerPid == app.processIdentifier) {
-                appName = app.localizedName;
-                [icon lockFocus];
-                [app.icon drawInRect:NSMakeRect(0, 0, icon.size.width, icon.size.height)
-                            fromRect:NSMakeRect(0, 0, app.icon.size.width, app.icon.size.height)
-                           operation:NSCompositeCopy
-                            fraction:1.0f];
-                [icon unlockFocus];
-                flg = YES;
-                break;
-            }
-        }
-        if (!flg) continue;
+        // winId
+        NSNumber *winId = CFDictionaryGetValue(dict, kCGWindowNumber);
         
+        // originalWinName
         CFStringRef n = CFDictionaryGetValue(dict, kCGWindowName);
         NSString *originalWinName = (__bridge_transfer NSString *) n;
-        NSString *winName = (originalWinName == nil || [originalWinName isEqualToString:@""]) ? appName : originalWinName;
         
+        // alpha, layer
         NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
         NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
         if (!([layer integerValue] == 0 && [alpha integerValue] > 0)) continue;
         
-        NSNumber *winId = CFDictionaryGetValue(dict, kCGWindowNumber);
+        // owner
+//        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
+//        NSString *owner = (__bridge_transfer NSString *)ownerRef;
         
-        AXUIElementRef uiEle = [self AXUIElementRefByWinId:winId pid:ownerPid];
-        if (uiEle == nil) continue;
-
-        NSArray* children = subElementsFromElement(uiEle);
-        if ([children count] == 0) continue;
+        // If the pid and the winID has same value as last model, the value of icon and appName, uiEle, uiEleChildren are copied from the last model.
+        NSImage *icon = nil;
+        NSString *appName = nil;
+        AXUIElementRef uiEle = nil;
+        NSArray* uiEleChildren = nil;
         
+        WindowInfoModel* sameWindowInfoAsLast = [self sameWindowInfoAsLastByPid:ownerPid winId:winId.integerValue];
+        if (sameWindowInfoAsLast == nil) {
+            icon = [[NSImage alloc] initWithSize:NSMakeSize(32, 32)];
+            
+            for (NSRunningApplication* app in apps) {
+                if (ownerPid == app.processIdentifier) {
+                    // appName
+                    appName = app.localizedName;
+                    
+                    // icon
+                    [icon lockFocus];
+                    [app.icon drawInRect:NSMakeRect(0, 0, icon.size.width, icon.size.height)
+                                fromRect:NSMakeRect(0, 0, app.icon.size.width, app.icon.size.height)
+                               operation:NSCompositeCopy
+                                fraction:1.0f];
+                    [icon unlockFocus];
+                    flg = YES;
+                    break;
+                }
+            }
+            if (!flg) continue;
+            
+            // uiEle
+            uiEle = [self AXUIElementRefByWinId:winId pid:ownerPid];
+            
+            // subUiEle
+            uiEleChildren = subElementsFromElement(uiEle);
+        } else {
+            icon = sameWindowInfoAsLast.icon;
+            appName = sameWindowInfoAsLast.appName;
+            uiEle = sameWindowInfoAsLast.uiEle;
+            uiEleChildren = sameWindowInfoAsLast.uiEleChildren;
+        }
+        
+        // winName
+        NSString *winName = (originalWinName == nil || [originalWinName isEqualToString:@""]) ? appName : originalWinName;
+        
+        // x, y, width, height
         CFDictionaryRef winBoundsRef = CFDictionaryGetValue(dict, kCGWindowBounds);
         NSDictionary *winBounds = (__bridge NSDictionary*)winBoundsRef;
         NSInteger x = [[winBounds objectForKey:@"X"] integerValue];
@@ -397,19 +421,35 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         model.winId = winId.integerValue;
         model.pid = ownerPid;
         model.uiEle = uiEle;
+        model.uiEleChildren = uiEleChildren;
         model.x = x;
         model.y = y;
         model.width = width;
         model.height = height;
         
-        [self.windowInfoArray addObject:model];
+        [newWindowInfoArray addObject:model];
     }
+    
+    self.lastAllWindowInfoArray = [newWindowInfoArray mutableCopy];
+    
+    self.windowInfoArray = [newWindowInfoArray mutableCopy];
+    [self removeInvalidWindowInfo];
     
     [self removeUnnecessaryWindowInfo];
     
     [self setWinKeyToWindowInfo];
     
     [self.arrayController setContent:self.windowInfoArray];
+}
+
+- (WindowInfoModel*)sameWindowInfoAsLastByPid:(NSInteger)pid winId:(NSInteger)winId
+{
+    for (WindowInfoModel *lastModel in self.windowInfoArray) {
+        if (lastModel.pid == pid && lastModel.winId == winId) {
+            return lastModel;
+        }
+    }
+    return nil;
 }
 
 - (void)resetWindowInfoAndViewSize
@@ -438,6 +478,17 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             break;
         }
     }
+}
+
+- (void)removeInvalidWindowInfo
+{
+    [self.windowInfoArray filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        WindowInfoModel* model = (WindowInfoModel*) evaluatedObject;
+        if (model.uiEle == nil || [model.uiEleChildren count] == 0) {
+            return NO;
+        }
+        return YES;
+    }]];
 }
 
 - (void)removeSpecificEmplyTitleWindowInfo:(NSString*)appName
