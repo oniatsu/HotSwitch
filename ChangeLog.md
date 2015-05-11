@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.11
+
+- Fix the removing invalid windows
+
 ## Version 1.10
 
 - Improve the speed by using cache
