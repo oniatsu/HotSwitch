@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.10
+
+- Improve the speed by using cache
+
 ## Version 1.9
 
 - Fix getting windows to ignore the specific windows
