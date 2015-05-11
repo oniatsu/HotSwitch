@@ -10,21 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.10</title>
+      <title>Version 1.11</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Improve the speed by using cache</li>
+          <li>Fix the removing invalid windows</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Mon, 11 May 2015 23:00:00 +0009</pubDate>
+      <pubDate>Mon, 11 May 2015 23:10:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.10"
+        sparkle:version="1.11"
         type="application/octet-stream"
-        sparkle:dsaSignature="MC0CFCNdZDGQXWEc0eWXmQcqiW6TjREmAhUAx4mZmEfujZzoriE1vF59hhP1DoY="
+        sparkle:dsaSignature="MC0CFBo5vn0w6/40pUnJjRV5WyhBktQdAhUAkmlN5S3qtna+1DMC0VA6iIOJ92Y="
         />
     </item>
 
