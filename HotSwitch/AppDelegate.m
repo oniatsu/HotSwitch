@@ -14,6 +14,7 @@
 #import "MASShortcut+Monitoring.h"
 #import "PaddingView.h"
 #import "KeyBindTableView.h"
+#import "UIElementUtilities.h"
 
 @implementation AppDelegate
 {
@@ -434,8 +435,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     
     self.windowInfoArray = [newWindowInfoArray mutableCopy];
     [self removeInvalidWindowInfo];
-    
-    [self removeUnnecessaryWindowInfo];
+    [self removeSelfWindowInfo];
     
     [self setWinKeyToWindowInfo];
     
@@ -458,16 +458,6 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self resetViewSize];
 }
 
-- (void)removeUnnecessaryWindowInfo
-{
-    [self removeSelfWindowInfo];
-    
-    // TODO: These ways is not smart.
-    // Currently the no meaning windows is removed from windows list by checking each windows info.
-    // Perhaps more suitable methods is exist.
-    [self removeXtraFinderDuplicateWindowInfo];
-}
-
 - (void)removeSelfWindowInfo
 {
     NSInteger winId = [self.panel windowNumber];
@@ -487,61 +477,21 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         if (model.uiEle == nil || [model.uiEleChildren count] == 0) {
             return NO;
         }
-        return YES;
-    }]];
-}
-
-- (void)removeSpecificEmplyTitleWindowInfo:(NSString*)appName
-{
-    for (WindowInfoModel *model in self.windowInfoArray) {
-        if ([model.appName isEqualToString:appName] && [model.originalWinName isEqualToString:@""]) {
-            [self.windowInfoArray removeObject:model];
-            break;
-        }
-    }
-}
-
-- (void)removeXtraFinderDuplicateWindowInfo
-{
-    // When you use "XtraFinder", two windows of the Finder is showed for some reason.
-    // So, this code check the duplicate window and ignore a window.
-    
-    NSInteger firstX = 0;
-    NSInteger firstY = 0;
-    NSInteger firstWidth = 0;
-    NSInteger firstHeight = 0;
-    NSString *firstWinName = @"";
-    
-    NSMutableArray *duplicateWindowInfoArray = [[NSMutableArray alloc] init];
-    
-    for (WindowInfoModel *model in self.windowInfoArray) {
-        if (![model.appName isEqualToString:@"Finder"]) {
-            continue;
+        
+        // ex. Finder on XtraFinder
+        if ([[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXSubrole" beingVerbose:false] isEqualToString:@"AXDialog"] &&
+            [[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXFullScreenButton" beingVerbose:false] isEqualToString:@"<AXButton>"] ) {
+            return NO;
         }
         
-        if (([model.winName isEqualToString:firstWinName]) && (model.x == firstX && model.width == firstWidth) && ((model.y - firstY) + (model.height - firstHeight) == 0)) {
-            // the window name is same
-            // and, the width is same
-            // and, the y difference and the height is same
-            // -> this judge that the duplicate window of "XtraFinder" is created
-            [duplicateWindowInfoArray addObject:model];
-            
-            firstX = 0;
-            firstY = 0;
-            firstWidth = 0;
-            firstHeight = 0;
-        } else {
-            firstX = model.x;
-            firstY = model.y;
-            firstWidth = model.width;
-            firstHeight = model.height;
-            firstWinName = model.winName;
+        // ex. Microsoft Excel
+        if ([[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXSubrole" beingVerbose:false] isEqualToString:@"AXUnknown"] &&
+            [[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXTitle" beingVerbose:false] isEqualToString:@"(null)"] ) {
+            return NO;
         }
-    }
-    
-    for (WindowInfoModel *model in duplicateWindowInfoArray) {
-        [self.windowInfoArray removeObject:model];
-    }
+        
+        return YES;
+    }]];
 }
 
 - (void)setWinKeyToWindowInfo
