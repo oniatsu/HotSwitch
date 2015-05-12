@@ -10,21 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.11</title>
+      <title>Version 1.12</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Fix the removing invalid windows</li>
+          <li>Improve removing windows to use more general way</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Mon, 11 May 2015 23:10:00 +0009</pubDate>
+      <pubDate>Wed, 13 May 2015 00:30:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.11"
+        sparkle:version="1.12"
         type="application/octet-stream"
-        sparkle:dsaSignature="MC0CFBo5vn0w6/40pUnJjRV5WyhBktQdAhUAkmlN5S3qtna+1DMC0VA6iIOJ92Y="
+        sparkle:dsaSignature="MC0CFQDJs4TyAg+XKk2VfoOG6SuFn5pL+wIUPPC/XBaqoAM2mUhrv/la9rkG/yA="
         />
     </item>
 
