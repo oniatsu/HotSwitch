@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.12
+
+- Improve removing windows to use more general way
+
 ## Version 1.11
 
 - Fix the removing invalid windows
