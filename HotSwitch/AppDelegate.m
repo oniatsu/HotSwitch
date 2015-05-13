@@ -65,11 +65,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self initializeVariables];
     
     [self initializePanel];
+    
     [self resetWindowInfoAndViewSize];
     
     [self setupStatusMenu];
-    
-    [self checkAccessibility];
     
     [self initializeHotkey];
     
@@ -297,12 +296,6 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     return accessibilityEnabled;
 }
 
-- (void)checkAccessibility
-{
-    // If the accessibility is disabled, the system preference will open.
-    [self isAccessibilityEnabled];
-}
-
 - (void)openAccessibility
 {
     NSString *script = [NSString stringWithFormat:@"tell application \"System Preferences\" \n set securityPane to pane id \"com.apple.preference.security\" \n tell securityPane to reveal anchor \"Privacy_Accessibility\" \n activate \n end tell"];
@@ -454,6 +447,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self setWinKeyToWindowInfo];
     
     [self.arrayController setContent:self.windowInfoArray];
+    
+//    NSLog(@"=== resetWindowInfo");
 }
 
 - (void)printModel:(WindowInfoModel*)model
@@ -478,7 +473,9 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)resetWindowInfoAndViewSize
 {
-    [self resetWindowInfo];
+    if ([self isAccessibilityEnabled]) {
+        [self resetWindowInfo];
+    }
     [self resetViewSize];
 }
 
@@ -789,8 +786,10 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
     
     [self resetHotkeyRegistration];
     
-    [self initializeRegistrationCmdTab];
-    [self resetReplacingCmdTab];
+    if ([self isAccessibilityEnabled]) {
+        [self initializeRegistrationCmdTab];
+        [self resetReplacingCmdTab];
+    }
     
     // For test
 //    [self resetConstantHotkeyRegistration];
@@ -837,7 +836,9 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
         
         [self selectNextRow];
         
-        [self activatePanel];
+        if ([self isAccessibilityEnabled]) {
+            [self activatePanel];
+        }
     } else {
         [self deactivatePanel];
     }
@@ -845,10 +846,17 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
 
 - (void)resetReplacingCmdTab
 {
-    if (self.isReplaceCmdTabEnabled) {
-        [self registerCmdTab];
-    } else {
-        [self unregisterCmdTab];
+    if ([self isAccessibilityEnabled]) {
+        if (self.isReplaceCmdTabEnabled) {
+            if (!eventTap) {
+                [self initializeRegistrationCmdTab];
+            }
+            [self registerCmdTab];
+        } else {
+            if (eventTap) {
+                [self unregisterCmdTab];
+            }
+        }
     }
 }
 
