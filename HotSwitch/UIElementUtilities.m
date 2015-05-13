@@ -520,7 +520,23 @@ NSString *const UIElementUtilitiesNoDescription = @"No Description";
 }
 
 
+#pragma -
+#pragma mark My Method
 
++ (NSDictionary *)attributeDictionaryOfUIElement:(AXUIElementRef)element
+{
+    NSMutableDictionary* attributesDictionary = [@{} mutableCopy];
+    
+    NSArray* theNames = [UIElementUtilities attributeNamesOfUIElement:element];
+    if (theNames) {
+        for (NSString* theName in theNames) {
+            NSString* description = [self descriptionForUIElement:element attribute:theName beingVerbose:false];
+            [attributesDictionary setObject:(description != nil) ? description : [NSNull null] forKeyedSubscript:theName];
+        }
+    }
+    
+    return [attributesDictionary copy];
+}
 
 
 @end
