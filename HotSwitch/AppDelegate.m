@@ -504,29 +504,20 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         // Check by using attributes's description
         NSString* descriptionOfAXRole = [model.uiEleAttributes objectForKey:@"AXRole"];
         NSString* descriptionOfAXSubrole = [model.uiEleAttributes objectForKey:@"AXSubrole"];
-        NSString* descriptionOfAXTitle = [model.uiEleAttributes objectForKey:@"AXTitle"];
         NSString* descriptionOfAXFullScreenButton = [model.uiEleAttributes objectForKey:@"AXFullScreenButton"];
         
         if ([descriptionOfAXRole isEqual:[NSNull null]]) descriptionOfAXRole = nil;
         if ([descriptionOfAXSubrole isEqual:[NSNull null]]) descriptionOfAXSubrole = nil;
-        if ([descriptionOfAXTitle isEqual:[NSNull null]]) descriptionOfAXTitle = nil;
         if ([descriptionOfAXFullScreenButton isEqual:[NSNull null]]) descriptionOfAXFullScreenButton = nil;
         
-        // ex. Google Chrome
-        if ([descriptionOfAXRole isEqualToString:@"AXUnknown"] &&
-            [descriptionOfAXSubrole isEqualToString:@"AXUnknown"]) {
+        // ex. Google Chrome, Microsoft Excel, Sleipnir
+        if ([descriptionOfAXRole isEqualToString:@"AXUnknown"] || [descriptionOfAXSubrole isEqualToString:@"AXUnknown"]) {
             return NO;
         }
         
         // ex. Finder on XtraFinder
         if ([descriptionOfAXSubrole isEqualToString:@"AXDialog"] &&
             descriptionOfAXFullScreenButton != nil && [descriptionOfAXFullScreenButton isEqualToString:@"<AXButton>"]) {
-            return NO;
-        }
-        
-        // ex. Microsoft Excel
-        if ([descriptionOfAXSubrole isEqualToString:@"AXUnknown"] &&
-            descriptionOfAXTitle == nil ) {
             return NO;
         }
         
