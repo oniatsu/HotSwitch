@@ -77,6 +77,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     
     // For test
 //    [self executeHotkey];
+    
+    NSLog(@"=== Initialized");
 }
 
 #pragma mark - test
@@ -454,6 +456,16 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self.arrayController setContent:self.windowInfoArray];
 }
 
+- (void)printModel:(WindowInfoModel*)model
+{
+    NSLog(@"appName: %@", model.appName);
+    NSLog(@"key: %@", model.key);
+    NSLog(@"originalWinName: %@", model.originalWinName);
+    NSLog(@"winName: %@", model.winName);
+    NSLog(@"uiEle: %@", model.uiEle);
+    NSLog(@"uiEleAttributes: %@", model.uiEleAttributes);
+}
+
 - (WindowInfoModel*)sameWindowInfoAsLastByPid:(NSInteger)pid winId:(NSInteger)winId
 {
     for (WindowInfoModel *lastModel in self.windowInfoArray) {
@@ -493,9 +505,15 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         }
         
         // Check by using attributes's description
-        NSString* descriptionOfAXTitle = [model.uiEleAttributes objectForKey:@"AXTitle"];
+        NSString* descriptionOfAXRole = [model.uiEleAttributes objectForKey:@"AXRole"];
         NSString* descriptionOfAXSubrole = [model.uiEleAttributes objectForKey:@"AXSubrole"];
+        NSString* descriptionOfAXTitle = [model.uiEleAttributes objectForKey:@"AXTitle"];
         NSString* descriptionOfAXFullScreenButton = [model.uiEleAttributes objectForKey:@"AXFullScreenButton"];
+        
+        // ex. Google Chrome
+        if ([descriptionOfAXRole isEqualToString:@"AXUnknown"] && [descriptionOfAXSubrole isEqualToString:@"AXUnknown"]) {
+            return NO;
+        }
         
         // ex. Finder on XtraFinder
         if ([descriptionOfAXSubrole isEqualToString:@"AXDialog"] && [descriptionOfAXFullScreenButton isEqualToString:@"<AXButton>"]) {
