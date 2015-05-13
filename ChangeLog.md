@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Version 1.13
+
+- Improve the speed by using cache of UIElemnt attributes
+- Fix checking Accessibility
+
 ## Version 1.12
 
 - Improve removing windows to use more general way
