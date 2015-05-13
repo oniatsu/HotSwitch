@@ -362,11 +362,13 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 //        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
 //        NSString *owner = (__bridge_transfer NSString *)ownerRef;
         
+        // TODO: Check necessity of uiEleChildren
         // If the pid and the winID has same value as last model, the value of icon and appName, uiEle, uiEleChildren are copied from the last model.
         NSImage *icon = nil;
         NSString *appName = nil;
         AXUIElementRef uiEle = nil;
-        NSArray* uiEleChildren = nil;
+        NSDictionary* uiEleAttributes = nil;
+//        NSArray* uiEleChildren = nil;
         
         WindowInfoModel* sameWindowInfoAsLast = [self sameWindowInfoAsLastByPid:ownerPid winId:winId.integerValue];
         if (sameWindowInfoAsLast == nil) {
@@ -393,13 +395,17 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             // uiEle
             uiEle = [self AXUIElementRefByWinId:winId pid:ownerPid];
             
+            // uiEleAttributes
+            uiEleAttributes = [UIElementUtilities attributeDictionaryOfUIElement:uiEle];
+            
             // subUiEle
-            uiEleChildren = subElementsFromElement(uiEle);
+//            uiEleChildren = subElementsFromElement(uiEle);
         } else {
             icon = sameWindowInfoAsLast.icon;
             appName = sameWindowInfoAsLast.appName;
             uiEle = sameWindowInfoAsLast.uiEle;
-            uiEleChildren = sameWindowInfoAsLast.uiEleChildren;
+            uiEleAttributes = sameWindowInfoAsLast.uiEleAttributes;
+//            uiEleChildren = sameWindowInfoAsLast.uiEleChildren;
         }
         
         // winName
@@ -413,16 +419,22 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         NSInteger width = [[winBounds objectForKey:@"Width"] integerValue];
         NSInteger height = [[winBounds objectForKey:@"Height"] integerValue];
         
+        // Set a model
         WindowInfoModel *model = [[WindowInfoModel alloc] init];
         model.key = @"";
+        
         model.icon = icon;
+        
         model.originalWinName = originalWinName;
         model.winName = winName;
         model.appName = appName;
         model.winId = winId.integerValue;
         model.pid = ownerPid;
+        
         model.uiEle = uiEle;
-        model.uiEleChildren = uiEleChildren;
+        model.uiEleAttributes = uiEleAttributes;
+//        model.uiEleChildren = uiEleChildren;
+        
         model.x = x;
         model.y = y;
         model.width = width;
@@ -474,19 +486,24 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 {
     [self.windowInfoArray filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         WindowInfoModel* model = (WindowInfoModel*) evaluatedObject;
-        if (model.uiEle == nil || [model.uiEleChildren count] == 0) {
+        
+        // Check the existence of UIElement
+        if (model.uiEle == nil) {
             return NO;
         }
         
+        // Check by using attributes's description
+        NSString* descriptionOfAXTitle = [model.uiEleAttributes objectForKey:@"AXTitle"];
+        NSString* descriptionOfAXSubrole = [model.uiEleAttributes objectForKey:@"AXSubrole"];
+        NSString* descriptionOfAXFullScreenButton = [model.uiEleAttributes objectForKey:@"AXFullScreenButton"];
+        
         // ex. Finder on XtraFinder
-        if ([[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXSubrole" beingVerbose:false] isEqualToString:@"AXDialog"] &&
-            [[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXFullScreenButton" beingVerbose:false] isEqualToString:@"<AXButton>"] ) {
+        if ([descriptionOfAXSubrole isEqualToString:@"AXDialog"] && [descriptionOfAXFullScreenButton isEqualToString:@"<AXButton>"]) {
             return NO;
         }
         
         // ex. Microsoft Excel
-        if ([[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXSubrole" beingVerbose:false] isEqualToString:@"AXUnknown"] &&
-            [[UIElementUtilities descriptionForUIElement:model.uiEle attribute:@"AXTitle" beingVerbose:false] isEqualToString:@"(null)"] ) {
+        if ([descriptionOfAXSubrole isEqualToString:@"AXUnknown"] && descriptionOfAXTitle == nil) {
             return NO;
         }
         

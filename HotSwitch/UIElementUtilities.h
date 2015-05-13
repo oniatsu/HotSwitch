@@ -96,7 +96,10 @@ extern NSString *const UIElementUtilitiesNoDescription;
 + (NSString *)stringDescriptionOfUIElement:(AXUIElementRef)inElement; // Note this is NOT nec. the AXDescription of the UIElement
 + (NSString *)descriptionForUIElement:(AXUIElementRef)uiElement attribute:(NSString *)name beingVerbose:(BOOL)beVerbose;
 
-
 + (NSString *)descriptionOfAXDescriptionOfUIElement:(AXUIElementRef)element;
+
+#pragma -
+#pragma mark My Method
++ (NSDictionary *)attributeDictionaryOfUIElement:(AXUIElementRef)inElement;
 
 @end
