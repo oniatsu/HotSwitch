@@ -525,6 +525,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)setWinKeyToWindowInfo
 {
+    self.allShowingWinKey = [[NSMutableArray alloc] init];
+    
     for (WindowInfoModel *model in self.windowInfoArray) {
         NSString *winKey = [self winKeyByWindowInfo:model];
         model.key = winKey;
