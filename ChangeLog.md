@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.14
+
+- Fix setter of all showing window keys
+
 ## Version 1.13
 
 - Improve the speed by using cache of UIElemnt attributes
