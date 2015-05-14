@@ -10,22 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.13</title>
+      <title>Version 1.14</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Improve the speed by using cache of UIElemnt attributes</li>
-          <li>Fix checking Accessibility</li>
+          <li>Fix setter of all showing window keys</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Wed, 13 May 2015 22:20:00 +0009</pubDate>
+      <pubDate>Thu, 14 May 2015 22:30:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.13"
+        sparkle:version="1.14"
         type="application/octet-stream"
-        sparkle:dsaSignature="MC0CFQC72TVGUPCJM1ACpWXVuCY0mzZ9rAIUGKAZ1RRdW7URK5NKdcwp5cEWla0="
+        sparkle:dsaSignature="MC0CFQCLFERCsCLfvrbhE3yVP/010jAGrwIUKrkWdoJk00ljO9X48n44WcvMQBg="
         />
     </item>
 
