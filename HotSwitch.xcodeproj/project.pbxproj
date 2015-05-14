@@ -35,6 +35,8 @@
 		C1CBF9B619DB07090064A0E8 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C1CBF9B319DB06DB0064A0E8 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C1CBF9B819DB079E0064A0E8 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = C1CBF9B719DB079E0064A0E8 /* dsa_pub.pem */; };
 		DC3C14A81B020987008DA44E /* UIElementUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = DC3C14A71B020987008DA44E /* UIElementUtilities.m */; };
+		DCB8C5EC1B04371B00779824 /* spaces.c in Sources */ = {isa = PBXBuildFile; fileRef = DCB8C5E81B04371B00779824 /* spaces.c */; };
+		DCB8C5ED1B04371B00779824 /* SpacesCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB8C5EB1B04371B00779824 /* SpacesCBridge.m */; };
 		DCFF3CB419D3B4C600B09ECD /* PaddingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFF3CB319D3B4C600B09ECD /* PaddingView.m */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +111,10 @@
 		C1CBF9B719DB079E0064A0E8 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		DC3C14A61B020987008DA44E /* UIElementUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElementUtilities.h; sourceTree = "<group>"; };
 		DC3C14A71B020987008DA44E /* UIElementUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIElementUtilities.m; sourceTree = "<group>"; };
+		DCB8C5E81B04371B00779824 /* spaces.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = spaces.c; sourceTree = "<group>"; };
+		DCB8C5E91B04371B00779824 /* spaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spaces.h; sourceTree = "<group>"; };
+		DCB8C5EA1B04371B00779824 /* SpacesCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpacesCBridge.h; sourceTree = "<group>"; };
+		DCB8C5EB1B04371B00779824 /* SpacesCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpacesCBridge.m; sourceTree = "<group>"; };
 		DCFF3CB219D3B4C600B09ECD /* PaddingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddingView.h; sourceTree = "<group>"; };
 		DCFF3CB319D3B4C600B09ECD /* PaddingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +256,10 @@
 		C1603AA519D0F7B80050810D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DCB8C5E81B04371B00779824 /* spaces.c */,
+				DCB8C5E91B04371B00779824 /* spaces.h */,
+				DCB8C5EA1B04371B00779824 /* SpacesCBridge.h */,
+				DCB8C5EB1B04371B00779824 /* SpacesCBridge.m */,
 				DC3C14A61B020987008DA44E /* UIElementUtilities.h */,
 				DC3C14A71B020987008DA44E /* UIElementUtilities.m */,
 				C14AEEB019C4250200F1278C /* WindowInfoModel.h */,
@@ -396,12 +406,14 @@
 				C14AEF1319C445FD00F1278C /* TitlelessMainPanel.m in Sources */,
 				C120815D19C4867400BFCC59 /* MASShortcut+UserDefaults.m in Sources */,
 				DC3C14A81B020987008DA44E /* UIElementUtilities.m in Sources */,
+				DCB8C5EC1B04371B00779824 /* spaces.c in Sources */,
 				C1C7AC9219CD880C00D31BC1 /* PreferencesWindow.m in Sources */,
 				C120815F19C4867400BFCC59 /* MASShortcutView+UserDefaults.m in Sources */,
 				C1603AB019D0FD570050810D /* WindowContainerView.m in Sources */,
 				C120815E19C4867400BFCC59 /* MASShortcutView.m in Sources */,
 				C14AEEB519C427F100F1278C /* KeyBindTableView.m in Sources */,
 				C14AEEB219C4250200F1278C /* WindowInfoModel.m in Sources */,
+				DCB8C5ED1B04371B00779824 /* SpacesCBridge.m in Sources */,
 				C120815A19C4867400BFCC59 /* MASShortcut.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
