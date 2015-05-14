@@ -4,7 +4,7 @@
 
 HotSwitch is a window switcher app for OS X.
 
-It provides elegant and rapid window switching, no matter how many windows there are.
+It provides fastest window switching, no matter how many windows there are.
 
 Detailed information is here. 
 http://oniatsu.github.io/HotSwitch/
