@@ -41,7 +41,7 @@
   id sb = [SBApplication applicationWithBundleIdentifier:@"com.apple.SystemEvents"];
   // the cast to id is a hack to avoid the type warning, and the call to performSelector is a hack to
   // avoid the semantic warning when calling keystroke:using: directly
-  [sb performSelector:@selector(keystroke:using:) withObject:@"1" withObject:(id)[self fourCharCode:"Kctl"]];
+  [sb performSelector:@selector(keystroke:using:) withObject:@"1" withObject:[[NSNumber alloc] initWithInteger:[self fourCharCode:"Kctl"]]];
 }
 
 - (void) setSpaceWithoutTransition:(unsigned int)spaceIndex
