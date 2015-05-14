@@ -84,12 +84,10 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)debugByLeftArrow
 {
-//    NSLog(@"debug - left");
 }
 
 - (void)debugByRightArrow
 {
-//    NSLog(@"debug - right");
 }
 
 #pragma mark - actions
