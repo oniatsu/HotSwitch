@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.15
+
+- Fix deativating the panel and activating a window
+
 ## Version 1.14
 
 - Fix setter of all showing window keys
