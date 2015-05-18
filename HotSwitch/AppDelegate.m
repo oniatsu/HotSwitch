@@ -831,6 +831,9 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
             [self activatePanel];
         }
     } else {
+        if ([self.windowInfoArray count] != 0) {
+            [self activateWindowByIndex:0];
+        }
         [self deactivatePanel];
     }
 }
