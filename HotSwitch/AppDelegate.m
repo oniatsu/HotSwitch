@@ -335,6 +335,8 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
             continue;
         }
         
+//        NSLog(@"%@", dict);
+        
         // pid
         CFNumberRef ownerPidRef = CFDictionaryGetValue(dict, kCGWindowOwnerPID);
         NSInteger ownerPid = [(__bridge_transfer NSNumber *)ownerPidRef integerValue];
@@ -503,13 +505,16 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         NSString* descriptionOfAXRole = [model.uiEleAttributes objectForKey:@"AXRole"];
         NSString* descriptionOfAXSubrole = [model.uiEleAttributes objectForKey:@"AXSubrole"];
         NSString* descriptionOfAXFullScreenButton = [model.uiEleAttributes objectForKey:@"AXFullScreenButton"];
+        NSString* descriptionOfAXTitle = [model.uiEleAttributes objectForKey:@"AXTitle"];
         
         if ([descriptionOfAXRole isEqual:[NSNull null]]) descriptionOfAXRole = nil;
         if ([descriptionOfAXSubrole isEqual:[NSNull null]]) descriptionOfAXSubrole = nil;
         if ([descriptionOfAXFullScreenButton isEqual:[NSNull null]]) descriptionOfAXFullScreenButton = nil;
+        if ([descriptionOfAXTitle isEqual:[NSNull null]]) descriptionOfAXTitle = nil;
         
         // ex. Google Chrome, Microsoft Excel, Sleipnir
-        if ([descriptionOfAXRole isEqualToString:@"AXUnknown"] || [descriptionOfAXSubrole isEqualToString:@"AXUnknown"]) {
+        if ([descriptionOfAXRole isEqualToString:@"AXUnknown"] || ( [descriptionOfAXSubrole isEqualToString:@"AXUnknown"] && [descriptionOfAXTitle isEqualToString:@""] ) ) {
+            // ex. Appeared Wine window's AXSubrole has AXUnkown, and the AXTitle has valid title.
             return NO;
         }
         
