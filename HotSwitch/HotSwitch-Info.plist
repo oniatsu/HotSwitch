@@ -33,7 +33,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>SUFeedURL</key>
-	<string>http://oniatsu.github.io/HotSwitch/release/appcast.xml</string>
+	<string>https://oniatsu.github.io/HotSwitch/release/appcast.xml</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
