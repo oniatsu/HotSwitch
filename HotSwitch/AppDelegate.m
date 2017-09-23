@@ -48,7 +48,7 @@ NSString *const kPreferenceReplaceCmdTabEnabled = @"ReplaceCmdTabEnabled";
 NSString *const kPreferenceWinKey = @"WinKey";
 
 // URL
-NSString *const kHotSwitchWebPageURI = @"http://oniatsu.github.io/HotSwitch/";
+NSString *const kHotSwitchWebPageURI = @"https://oniatsu.github.io/HotSwitch/";
 
 // Message
 NSString *const kRegistrationMessage = @">> Input a key to be registerd <<";
