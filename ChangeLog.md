@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Version 1.16
+
+- Fix a window size listing all windows
+- Fix a URL checking app update
+
 ## Version 1.15
 
 - Fix deativating the panel and activating a window
