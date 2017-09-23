@@ -5,7 +5,7 @@ description: > # this means to ignore newlines until "baseurl:"
   HotSwitch provides fastest window switching, even if many complex windows are showing.
   You can switch any windows in a blink of an eye.
 baseurl: "/HotSwitch" # the subpath of your site, e.g. /blog/
-url: "http://oniatsu.github.io" # the base hostname & protocol for your site
+url: "https://oniatsu.github.io" # the base hostname & protocol for your site
 twitter_username: oniatsu
 github_username:  oniatsu
 
