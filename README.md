@@ -1,8 +1,8 @@
 # What is HotSwitch
 
-![](http://oniatsu.github.io/HotSwitch/images/top_image.png)
+![](https://oniatsu.github.io/HotSwitch/images/top_image.png)
 
-HotSwitch is a window switcher app for OS X.
+HotSwitch is a window switcher app using 2 stroke hotkey for macOS.
 
 It provides fastest window switching, no matter how many windows there are.
 
@@ -11,22 +11,11 @@ http://oniatsu.github.io/HotSwitch/
 
 # Installation
 
-## Manual way
-
-[Download](http://oniatsu.github.io/HotSwitch/) and install HotSwitch.
-
-## Using Homebrew Cask
-
-This way requires [Homebrew Cask](http://caskroom.io/).
-Execute the following command at your terminal.
-
-```
-$ brew cask install hotswitch
-```
+[Download](https://oniatsu.github.io/HotSwitch/) and install HotSwitch.
 
 # Usage
 
-See [HotSwitch page](http://oniatsu.github.io/HotSwitch/).
+See [HotSwitch page](https://oniatsu.github.io/HotSwitch/).
 
 # Collaboration
 
@@ -36,7 +25,7 @@ Send Pull-Request when you fix some bugs or modify some functions.
 
 # License
 
-HotSwitch is released under the [MIT License](http://opensource.org/licenses/MIT).
+HotSwitch is developed under the [MIT License](https://opensource.org/licenses/MIT).
 
 # ChangeLog
 
