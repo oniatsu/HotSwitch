@@ -1142,7 +1142,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef
     
     NSRect screen = [[NSScreen mainScreen] visibleFrame];
     
-    [self.panel setFrame:CGRectMake((screen.size.width - defaultPanelWidth) / 2, (screen.size.height - panelHeight) / 2, defaultPanelWidth, panelHeight) display:YES animate:NO];
+    [self.panel setFrame:CGRectMake(screen.origin.x + (screen.size.width - defaultPanelWidth) / 2, screen.origin.y + (screen.size.height - panelHeight) / 2, defaultPanelWidth, panelHeight) display:YES animate:NO];
     self.padding.frame = CGRectMake(defaultPaddingX, defaultPaddingY, defaultPaddingWidth, defaultPaddingHeight + diff_height);
     self.scrollView.frame = CGRectMake(defaultScrollViewX, defaultScrollViewY, defaultScrollViewWidth, defaultScrollViewHeight + diff_height);
 }
