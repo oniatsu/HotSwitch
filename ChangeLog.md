@@ -2,7 +2,7 @@
 
 ## Version 1.17
 
-- Fix panel position for multi windows
+- Fix panel position for multi-monitor
 
 ## Version 1.16
 
