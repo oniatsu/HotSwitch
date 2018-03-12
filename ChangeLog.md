@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.17
+
+- Fix panel position for multi windows
+
 ## Version 1.16
 
 - Fix a window size listing all windows
