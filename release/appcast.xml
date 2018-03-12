@@ -15,7 +15,7 @@ layout: null
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Fix panel position for multi windows</li>
+          <li>Fix panel position for multi-monitor</li>
         </ul>
         ]]>
       </description>
