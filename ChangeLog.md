@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.18
+
+- Support macOS 10.15 Catalina
+
 ## Version 1.17
 
 - Fix panel position for multi-monitor
