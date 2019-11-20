@@ -70,10 +70,12 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     
     [self setupStatusMenu];
     
+    [self triggerScreenRecordingPermission];
+    
     [self initializeHotkey];
     
     [self initializeFirstExecution];
-    
+
     // For test
 //    [self executeHotkey];
     
@@ -253,6 +255,19 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         
         [self initializePreferences];
         [self showTutorial];
+    }
+}
+
+- (void)triggerScreenRecordingPermission
+{
+    CGDisplayStreamRef stream = CGDisplayStreamCreate(CGMainDisplayID(), 1, 1, kCVPixelFormatType_32BGRA, nil, ^(CGDisplayStreamFrameStatus status, uint64_t displayTime, IOSurfaceRef frameSurface, CGDisplayStreamUpdateRef updateRef) {
+    });
+    if (stream) {
+        CFRelease(stream);
+    } else {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"You need 2 permissions to use this app.\n\n1. System Preferences > Security & Privacy > Privacy > Accesibility\n2. System Preferences > Security & Privacy > Privacy > Screen Recording\n\nDetailed information is here.\nhttps://github.com/oniatsu/HotSwitch"];
+        [alert runModal];
     }
 }
 
