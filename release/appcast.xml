@@ -10,21 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.17</title>
+      <title>Version 1.18</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Fix panel position for multi-monitor</li>
+          <li>Support macOS 10.15 Catalina</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Mon, 12 Mar 2018 22:00:00 +0009</pubDate>
+      <pubDate>Thu, 21 Nov 2019 24:00:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.17"
+        sparkle:version="1.18"
         type="application/octet-stream"
-        sparkle:dsaSignature="MC0CFAfi236j/NjfDZ8ul3xX1g08uMJ8AhUAn3s9s3spjYWroJZKuDiZMY7vN2s="
+        sparkle:dsaSignature="MCwCFClosDkzbVFampr1q2QaLhOCx47XAhQye0W5atFGq123Tvow5qJnFMsv5Q=="
         />
     </item>
 
