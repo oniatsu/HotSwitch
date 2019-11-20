@@ -26,7 +26,7 @@ The permission requests are opened on app starting.
 ### 1. System Preferences > Security & Privacy > Privacy > "Accesibility"
 Activating a window requires it.
 
-### 2. System Preferences > Security & Privacy > Privacy > "Screen Recording"
+### 2. System Preferences > Security & Privacy > Privacy > "Screen Recording" (on macOS 10.15+)
 Showing a window title requires it.
 
 # Collaboration
