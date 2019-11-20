@@ -12,11 +12,11 @@
   - Archive the Mac Application to a zip file
     - `% zip -ry HotSwitch.zip ~/app_directory/HotSwitch.app`
 - Publish an update
-  - Switch `gh_page` branch
+  - Switch `gh-page` branch
   - See the update's DSA signature
     - `% ./Sparkle/bin/sign_update.sh ~/zip_directory/HotSwitch.zip ~/key_directory/dsa_priv.pem`
   - Edit `appcast.xml` by using the signature
   - Replace the `HotSwitch.zip`
-  - Commit and push `gh_page` branch
+  - Commit and push `gh-page` branch
   - Try and finish
 
