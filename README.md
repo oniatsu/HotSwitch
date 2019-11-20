@@ -23,10 +23,10 @@ You need 2 permissions to use this app.
 
 The permission requests are opened on app starting.
 
-### 1 System Preferences > Security & Privacy > Privacy > **Accesibility**
+### 1. System Preferences > Security & Privacy > Privacy > "Accesibility"
 Activating a window requires it.
 
-### 2 System Preferences > Security & Privacy > Privacy > **Screen Recording**
+### 2. System Preferences > Security & Privacy > Privacy > "Screen Recording"
 Showing a window title requires it.
 
 # Collaboration
