@@ -449,7 +449,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         model.y = y;
         model.width = width;
         model.height = height;
-        
+
         [newWindowInfoArray addObject:model];
     }
     
@@ -466,14 +466,22 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 //    NSLog(@"=== resetWindowInfo");
 }
 
+// DEBUG
 - (void)printModel:(WindowInfoModel*)model
 {
+    NSLog(@"DEBUG ==============");
     NSLog(@"appName: %@", model.appName);
     NSLog(@"key: %@", model.key);
     NSLog(@"originalWinName: %@", model.originalWinName);
     NSLog(@"winName: %@", model.winName);
+    NSLog(@"winId: %ld", model.winId);
+    NSLog(@"pid: %ld", model.pid);
     NSLog(@"uiEle: %@", model.uiEle);
     NSLog(@"uiEleAttributes: %@", model.uiEleAttributes);
+    NSLog(@"x: %ld", model.x);
+    NSLog(@"y: %ld", model.y);
+    NSLog(@"width: %ld", model.width);
+    NSLog(@"height: %ld", model.height);
 }
 
 - (WindowInfoModel*)sameWindowInfoAsLastByPid:(NSInteger)pid winId:(NSInteger)winId
@@ -515,13 +523,26 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         if (model.uiEle == nil) {
             return NO;
         }
+
+        // Debug
+//        if ([model.appName isEqual:@"Google Chrome"]) {
+//            [self printModel:model];
+//        }
         
+        // Check original window name
+        // Judge no name window to invalid one
+        // However, it limits a specific app now, because it is unknown that all app's case is applied.
+        if ([model.appName isEqual:@"Google Chrome"]) {
+            if ([model.originalWinName isEqualToString:@""]) {
+                return NO;
+            }
+        }
+
         // Check by using attributes's description
         NSString* descriptionOfAXRole = [model.uiEleAttributes objectForKey:@"AXRole"];
         NSString* descriptionOfAXSubrole = [model.uiEleAttributes objectForKey:@"AXSubrole"];
         NSString* descriptionOfAXFullScreenButton = [model.uiEleAttributes objectForKey:@"AXFullScreenButton"];
         NSString* descriptionOfAXTitle = [model.uiEleAttributes objectForKey:@"AXTitle"];
-        
         if ([descriptionOfAXRole isEqual:[NSNull null]]) descriptionOfAXRole = nil;
         if ([descriptionOfAXSubrole isEqual:[NSNull null]]) descriptionOfAXSubrole = nil;
         if ([descriptionOfAXFullScreenButton isEqual:[NSNull null]]) descriptionOfAXFullScreenButton = nil;
@@ -847,9 +868,7 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
         
         [self selectNextRow];
         
-        if ([self isAccessibilityEnabled]) {
-            [self activatePanel];
-        }
+        [self activatePanel];
     } else {
         if ([self.windowInfoArray count] != 0) {
             [self activateWindowByIndex:0];
