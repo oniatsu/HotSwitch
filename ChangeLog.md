@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.19
+
+- Fix getting chrome's invalid windows
+
 ## Version 1.18
 
 - Support macOS 10.15 Catalina
