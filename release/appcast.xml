@@ -10,21 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.18</title>
+      <title>Version 1.19</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Support macOS 10.15 Catalina</li>
+          <li>Fix getting chrome's invalid windows</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Thu, 21 Nov 2019 24:00:00 +0009</pubDate>
+      <pubDate>Thu, 22 Nov 2019 09:00:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.18"
+        sparkle:version="1.19"
         type="application/octet-stream"
-        sparkle:dsaSignature="MCwCFClosDkzbVFampr1q2QaLhOCx47XAhQye0W5atFGq123Tvow5qJnFMsv5Q=="
+        sparkle:dsaSignature="MC0CFDOlybiw2lqkGQmgyhi3ii8A5K0fAhUAlSfjmAtKCw+t1sA54clSoqfSMsQ="
         />
     </item>
 
