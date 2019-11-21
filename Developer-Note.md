@@ -18,12 +18,12 @@
 - Add a tag, and push it
 - In Xcode, export as a Mac Application
 - Archive the Mac Application to a zip file
-  - `zip -ry HotSwitch.zip ~/app_directory/HotSwitch.app`
+  - `zip -ry HotSwitch.zip ~/app_directory/HotSwitch.app` (Edit the paths)
 
 ### Publish an update
 - Switch `master` branch
 - Copy the update's DSA signature
-  - `./Sparkle/bin/sign_update.sh ~/zip_directory/HotSwitch.zip ~/key_directory/dsa_priv.pem | pbcopy`
+  - `./Sparkle/bin/sign_update.sh ~/zip_directory/HotSwitch.zip ~/key_directory/dsa_priv.pem | pbcopy` (Edit the paths)
 - Switch `gh-page` branch
 - Edit `./release/appcast.xml` by using the signature
 - Replace `./release/zip/HotSwitch.zip` to new zip file
