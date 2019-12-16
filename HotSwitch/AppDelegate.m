@@ -69,14 +69,16 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
     [self resetWindowInfoAndViewSize];
     
     [self setupStatusMenu];
-    
-    [self triggerScreenRecordingPermission];
-    
-    [self initializeHotkey];
-    
+
     [self initializeFirstExecution];
 
-    // For test
+    // Check the permissions
+    [self triggerScreenRecordingPermission];
+    if ([self isAccessibilityEnabled]) {
+            [self initializeGeneralHotkey];
+            [self initializeCmdTabHotkey];
+    }
+    // For Debug. Use this instead of above codes
 //    [self executeHotkey];
     
     NSLog(@"=== Initialized");
@@ -496,9 +498,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)resetWindowInfoAndViewSize
 {
-    if ([self isAccessibilityEnabled]) {
-        [self resetWindowInfo];
-    }
+    [self resetWindowInfo];
     [self resetViewSize];
 }
 
@@ -809,7 +809,7 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
     }
 }
 
-- (void)initializeHotkey
+- (void)initializeGeneralHotkey
 {
     [self registerDefaultHotkey];
     
@@ -817,14 +817,17 @@ NSArray* subElementsFromElement(AXUIElementRef element) {
     self.shortcutView.associatedUserDefaultsKey = kPreferenceGlobalShortcut;
     
     [self resetHotkeyRegistration];
-    
+
+    // For debug
+//    [self resetConstantHotkeyRegistration];
+}
+
+- (void)initializeCmdTabHotkey
+{
     if ([self isAccessibilityEnabled]) {
         [self initializeRegistrationCmdTab];
         [self resetReplacingCmdTab];
     }
-    
-    // For test
-//    [self resetConstantHotkeyRegistration];
 }
 
 - (void)registerDefaultHotkey
