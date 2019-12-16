@@ -366,7 +366,7 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
         // alpha, layer
         NSNumber *alpha = CFDictionaryGetValue(dict, kCGWindowAlpha);
         NSNumber *layer = CFDictionaryGetValue(dict, kCGWindowLayer);
-        if (!([layer integerValue] == 0 && [alpha integerValue] > 0)) continue;
+        if (!([layer integerValue] == 0 && [alpha floatValue] > 0)) continue;
         
         // owner
 //        CFStringRef ownerRef = CFDictionaryGetValue(dict, kCGWindowOwnerName);
