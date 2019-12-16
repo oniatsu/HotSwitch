@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Version 1.20
+
+- Fix sequences
+- Fix getting transparent windows
+
 ## Version 1.19
 
 - Fix getting chrome's invalid windows
