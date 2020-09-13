@@ -10,21 +10,21 @@ layout: null
     <language>en</language>
 
     <item>
-      <title>Version 1.20</title>
+      <title>Version 1.21</title>
       <description>
         <![CDATA[
         <h3>ChangeLog</h3>
         <ul>
-          <li>Fix getting transparent windows</li>
+          <li>Fix focusing other screen windows</li>
         </ul>
         ]]>
       </description>
-      <pubDate>Thu, 17 Dec 2019 00:00:00 +0009</pubDate>
+      <pubDate>Mon, 14 Sep 2020 04:00:00 +0009</pubDate>
       <enclosure
         url="{{ site.url }}{{ site.baseurl }}/release/zip/HotSwitch.zip"
-        sparkle:version="1.20"
+        sparkle:version="1.21"
         type="application/octet-stream"
-        sparkle:dsaSignature="MCwCFGUBKsEMUldHZEvXjHJ8old75NzwAhRdkS94nxwn1bKrvv0F5WfLSrX6cg=="
+        sparkle:dsaSignature="MC4CFQC1Zvx/rLSMTrIn4YCZA6pf9ZB+DgIVAMS8Q1z/mM5otXn+lI6MwR6wiDOe"
         />
     </item>
 
