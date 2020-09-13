@@ -1,5 +1,9 @@
 # ChangeLog
 
+## Version 1.21
+
+- Fix focusing other screen windows
+
 ## Version 1.20
 
 - Fix sequences
