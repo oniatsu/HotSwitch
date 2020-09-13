@@ -7,6 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
+extern CGError SLPSPostEventRecordTo(ProcessSerialNumber *psn, uint8_t *bytes);
+
 @class MASShortcutView;
 @class PaddingView;
 @class KeyBindTableView;

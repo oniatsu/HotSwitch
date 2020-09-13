@@ -16,6 +16,8 @@
 #import "KeyBindTableView.h"
 #import "UIElementUtilities.h"
 
+#define kCPSUserGenerated 0x200
+
 @implementation AppDelegate
 {
     CGFloat defaultPanelX;
@@ -634,14 +636,50 @@ NSString *const kMenuAppIconName = @"menu_icon_16";
 
 - (void)activateWindow:(WindowInfoModel*)model
 {
+    /**
+     * // Ref: https://github.com/Hammerspoon/hammerspoon/issues/370#issuecomment-545545468
+     *
+     * // focus the process, and tell it which window should get key-focus.
+     * _SLPSSetFrontProcessWithOptions(window_psn, window_id, kCPSUserGenerated);
+     *
+     * // synthesize an event to have the process update the key-window internally
+     * window_manager_make_key_window(window_psn, window_id);
+     *
+     * // standard way to focus a window through the accessibility API
+     * AXUIElementPerformAction(window_ref, kAXRaiseAction);
+    */
+    
     int pid = (int)model.pid;
-    AXUIElementRef uiEle = model.uiEle;
-    
-    AXUIElementPerformAction(uiEle, kAXRaiseAction);
-    
     ProcessSerialNumber process;
     GetProcessForPID(pid, &process);
-    SetFrontProcessWithOptions(&process, kSetFrontProcessFrontWindowOnly);
+    _SLPSSetFrontProcessWithOptions(&process, model.winId, kCPSUserGenerated);
+
+    [self windowManagerMakeKeyWindow:&process window_id:(uint32_t) model.winId];
+
+    AXUIElementRef uiEle = model.uiEle;
+    AXUIElementPerformAction(uiEle, kAXRaiseAction);
+}
+
+- (void)windowManagerMakeKeyWindow:(ProcessSerialNumber*)window_psn window_id:(uint32_t)window_id
+{
+    uint8_t bytes1[0xf8] = {
+        [0x04] = 0xF8,
+        [0x08] = 0x01,
+        [0x3a] = 0x10
+    };
+
+    uint8_t bytes2[0xf8] = {
+        [0x04] = 0xF8,
+        [0x08] = 0x02,
+        [0x3a] = 0x10
+    };
+
+    memcpy(bytes1 + 0x3c, &window_id, sizeof(uint32_t));
+    memset(bytes1 + 0x20, 0xFF, 0x10);
+    memcpy(bytes2 + 0x3c, &window_id, sizeof(uint32_t));
+    memset(bytes2 + 0x20, 0xFF, 0x10);
+    SLPSPostEventRecordTo(window_psn, bytes1);
+    SLPSPostEventRecordTo(window_psn, bytes2);
 }
 
 - (AXUIElementRef)AXUIElementRefByWinId:(NSNumber*)modelWinId pid:(NSInteger)modelPid

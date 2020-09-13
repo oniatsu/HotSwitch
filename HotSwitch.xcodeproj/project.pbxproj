@@ -545,7 +545,12 @@
 				GCC_PREFIX_HEADER = "HotSwitch/HotSwitch-Prefix.pch";
 				INFOPLIST_FILE = "HotSwitch/HotSwitch-Info.plist";
 				MARKETING_VERSION = 1.20;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SkyLight,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -564,7 +569,12 @@
 				GCC_PREFIX_HEADER = "HotSwitch/HotSwitch-Prefix.pch";
 				INFOPLIST_FILE = "HotSwitch/HotSwitch-Info.plist";
 				MARKETING_VERSION = 1.20;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SkyLight,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
