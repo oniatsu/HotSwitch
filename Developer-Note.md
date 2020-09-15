@@ -18,7 +18,7 @@
 - Add a tag, and push it
 - In Xcode, export as a Mac Application
 - Archive the Mac Application to a zip file
-  - `zip -ry HotSwitch.zip ~/app_directory/HotSwitch.app` (Edit the paths)
+  - `zip -ry HotSwitch.zip HotSwitch.app` (Edit the paths. You need specify a relative path for HotSwitch.app)
 
 ### Publish an update
 - Switch `master` branch
