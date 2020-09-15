@@ -19,6 +19,7 @@
 - In Xcode, export as a Mac Application
 - Archive the Mac Application to a zip file
   - `zip -ry HotSwitch.zip HotSwitch.app` (Edit the paths. You need specify a relative path for HotSwitch.app)
+  - Check the content of zip file
 
 ### Publish an update
 - Switch `master` branch
