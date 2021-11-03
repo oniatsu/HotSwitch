@@ -1,4 +1,4 @@
-# Notice
+# NOTICE
 
 HotSwitch don't work on macOS Monterey now.
 
