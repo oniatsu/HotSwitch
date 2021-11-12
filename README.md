@@ -1,8 +1,9 @@
 # NOTICE
 
-HotSwitch don't work on macOS Monterey now.
+HotSwitch is **DEPRECCATED** now.
 
-If you want to use HotSwitch on macOS monterey, use [HotSwitch-HS](https://github.com/oniatsu/HotSwitch-HS).
+HotSwitch does't work on macOS Monterey and has some bugs on previous macOS.
+If you want to use HotSwitch on macOS monterey, use [HotSwitch-HS](https://github.com/oniatsu/HotSwitch-HS) as a substitution.
 
 HotSwitch-HS uses [Hammerspoon](https://www.hammerspoon.org/), and is rewritten for a substitution of HotSwitch.
 
