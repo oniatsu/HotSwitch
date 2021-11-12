@@ -1,6 +1,6 @@
 # NOTICE
 
-HotSwitch is **DEPRECCATED** now.
+HotSwitch is **DEPRECATED** now.
 
 HotSwitch does't work on macOS Monterey and has some bugs on previous macOS.
 If you want to use HotSwitch on macOS monterey, use [HotSwitch-HS](https://github.com/oniatsu/HotSwitch-HS) as a substitution.
