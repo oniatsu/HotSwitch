@@ -3,9 +3,9 @@
 HotSwitch is **DEPRECATED**.
 
 HotSwitch does't work on macOS Monterey or later and has some bugs on previous macOS.
-If you want to use HotSwitch, use [HotSwitch-HS](https://github.com/oniatsu/HotSwitch-HS).
+If you want to use HotSwitch, use **[HotSwitch-HS](https://github.com/oniatsu/HotSwitch-HS)**.
 
-HotSwitch-HS uses [Hammerspoon](https://www.hammerspoon.org/), and is rewritten for a substitution of HotSwitch.
+**HotSwitch-HS** uses [Hammerspoon](https://www.hammerspoon.org/), and is rewritten for a substitution of HotSwitch.
 
 # What is HotSwitch
 
